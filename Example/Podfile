@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'OsTools_Example' do
+  pod 'OsTools', :path => '../'
+
+  target 'OsTools_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
