@@ -159,7 +159,7 @@
 		6E554DDA5FEB431E9B4DD9EE43A512FA /* OsTools */ = {
 			isa = PBXGroup;
 			children = (
-				F42D7BB524DC507900F4678C /* src */,
+				F42D7BBC24DC561700F4678C /* Classes */,
 				AA0B9682749F325FD4EF6E2652C7B095 /* Pod */,
 				F283CAA9F8C1B75BFD7A03E7EDC96129 /* Support Files */,
 			);
@@ -227,14 +227,14 @@
 			path = "Example/Pods/Target Support Files/OsTools";
 			sourceTree = "<group>";
 		};
-		F42D7BB524DC507900F4678C /* src */ = {
+		F42D7BBC24DC561700F4678C /* Classes */ = {
 			isa = PBXGroup;
 			children = (
 				F42D7BBA24DC519D00F4678C /* extensions.swift */,
 				F42D7BB824DC510300F4678C /* Tools.swift */,
 				F42D7BB624DC50AE00F4678C /* PointerExtensions.swift */,
 			);
-			path = src;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

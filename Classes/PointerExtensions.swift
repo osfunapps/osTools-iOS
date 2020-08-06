@@ -11,7 +11,7 @@ import Foundation
 extension UnsafeBufferPointer where Element == UInt8 {
     
     /// Will read 4 bytes from a buffer to a single (little endian) int
-    func readUInt32LE(offset: Int) -> UInt32 {
+    public func readUInt32LE(offset: Int) -> UInt32 {
         var arr: UnsafeBufferPointer<UInt8>? = UnsafeBufferPointer<UInt8>.init(rebasing: self[offset...offset + 4])
         let uint32Val = arr!.baseAddress!.withMemoryRebound(to: UInt32.self, capacity: 1) { $0 }.pointee
         arr = nil
@@ -19,7 +19,7 @@ extension UnsafeBufferPointer where Element == UInt8 {
     }
     
     /// Will read single byte from a buffer to a single (big endian) int
-    func readUInt8BE(offset: Int) -> UInt8 {
+    public func readUInt8BE(offset: Int) -> UInt8 {
         var arr: UnsafeBufferPointer<UInt8>? = UnsafeBufferPointer<UInt8>.init(rebasing: self[offset...offset + 1])
         let bigEndianValue = arr!.baseAddress!.withMemoryRebound(to: UInt8.self, capacity: 1) { $0 }.pointee
         arr = nil
@@ -35,7 +35,7 @@ extension UnsafeBufferPointer where Element == UInt8 {
     }
     
     /// Will read 2 bytes from a buffer to a single (little endian) int
-    func readUInt16LE(offset: Int) -> Int {
+    public func readUInt16LE(offset: Int) -> Int {
         var arr: UnsafeBufferPointer<UInt8>? = UnsafeBufferPointer<UInt8>.init(rebasing: self[offset...offset + 2])
         let uint16Val = arr!.baseAddress!.withMemoryRebound(to: UInt16.self, capacity: 1) { $0 }.pointee
         arr = nil
@@ -43,7 +43,7 @@ extension UnsafeBufferPointer where Element == UInt8 {
     }
     
     /// Will read 4 bytes from a buffer to a single (big endian) int
-    func readUInt32BE(offset: Int) -> UInt32 {
+    public func readUInt32BE(offset: Int) -> UInt32 {
         var arr: UnsafeBufferPointer<UInt8>? = UnsafeBufferPointer<UInt8>.init(rebasing: self[offset...offset + 4])
         let bigEndianValue = arr!.baseAddress!.withMemoryRebound(to: UInt32.self, capacity: 1) { $0 }.pointee
         arr = nil
@@ -51,14 +51,14 @@ extension UnsafeBufferPointer where Element == UInt8 {
     }
     
     /// Will read 8 bytes from a buffer to a single (big endian) int
-    func readUInt64LE(offset: Int) -> UInt64 {
+    public func readUInt64LE(offset: Int) -> UInt64 {
         var arr: UnsafeBufferPointer<UInt8>? = UnsafeBufferPointer<UInt8>.init(rebasing: self[offset...offset + 8])
         let uint64Val = arr!.baseAddress!.withMemoryRebound(to: UInt64.self, capacity: 1) { $0 }.pointee
         arr = nil
         return UInt64(littleEndian: uint64Val)
     }
     
-    func toUTFString() -> String? {
+    public func toUTFString() -> String? {
         if let string = String(bytes: self, encoding: .utf8) {
             return string
         } else {
@@ -68,7 +68,7 @@ extension UnsafeBufferPointer where Element == UInt8 {
     }
     
     /// Will read bytes to string
-    func readString(offset: Int, dataLength: Int) -> String {
+    public func readString(offset: Int, dataLength: Int) -> String {
         var arr: UnsafeBufferPointer<UInt8>? = UnsafeBufferPointer<UInt8>.init(rebasing: self[offset...offset + dataLength])
         let str = arr!.toUTFString()!
         arr = nil
@@ -81,26 +81,26 @@ extension Int {
 
     
     /// Will break a number to a single byte and add it to a data object
-    func writeUInt8() -> Data {
+    public func writeUInt8() -> Data {
         return Data(bytes: [UInt8(self)])
     }
     
     /// Will break a number to 2 (big endian) bytes and add them to a data object
-       func writeUInt16BE() -> Data {
+       public func writeUInt16BE() -> Data {
            let uInt8Value0 = UInt8(self >> 8)
            let uInt8Value1 = UInt8(self & 0x00ff)
            return Data(bytes: [uInt8Value0, uInt8Value1])
        }
        
     /// Will break a number to 2 (little endian) byte array and add it to a data object
-    func writeUInt16LE() -> Data {
+    public func writeUInt16LE() -> Data {
         let byte1 = UInt8(self & 0xff)
         let byte2 = UInt8(self >> 8 & 0xff)
         return Data(bytes: [byte1, byte2])
     }
     
     /// Will break a number to 4 (big endian) bytes and add it to a data object
-      func writeUInt32BE() -> Data {
+      public func writeUInt32BE() -> Data {
           let __data = UInt32(self)
           let byte1 = UInt8(self & 0x000000FF)         // 10
           let byte2 = UInt8((self & 0x0000FF00) >> 8)  // 154
@@ -111,7 +111,7 @@ extension Int {
       }
     
     /// Will break a number to 4 (little endian) bytes and add them to a data object
-    func writeUInt32LE() -> Data {
+    public func writeUInt32LE() -> Data {
         let byte1 = UInt8(self & 0xff)
         let byte2 = UInt8(self >> 8 & 0xff)
         let byte3 = UInt8(self >> 16 & 0xff)
@@ -121,12 +121,12 @@ extension Int {
     
     
     /// Will break a float to 2 (little endian) bytes and add it to a data object
-    func writeFloat32LE(valToAdd: Float) -> Data {
+    public func writeFloat32LE(valToAdd: Float) -> Data {
         return Int(valToAdd.bitPattern).writeUInt32LE()
     }
     
     /// Will break a number to 8 (little endian) bytes and add it to a data object
-    func writeUInt64LE() -> Data {
+    public func writeUInt64LE() -> Data {
         let byte1 = UInt8(self & 0xff)
         let byte2 = UInt8(self >> 8 & 0xff)
         let byte3 = UInt8(self >> 16 & 0xff)
@@ -143,19 +143,19 @@ extension Int {
 extension Array where Element == UInt8  {
     
     // Will break a number to 2 (big endian) bytes and add them to the buffer starting a given offset
-    mutating func writeUInt16BE(number: Int, offset: Int) {
+    public mutating func writeUInt16BE(number: Int, offset: Int) {
         self[offset] = UInt8(number >> 8)
         self[offset+1] = UInt8(number & 0x00ff)
     }
     
     // Will break a number to 2 (little endian) bytes and add them to the buffer starting a given offset
-    mutating func writeUInt16LE(number: Int, offset: Int) {
+    public mutating func writeUInt16LE(number: Int, offset: Int) {
         self[offset] = UInt8(number & 0xff)
         self[offset + 1] = UInt8(number >> 8 & 0xff)
     }
     
     /// Will break a number to 4 (little endian) bytes and add them to the buffer starting a given offset
-    mutating func writeUInt32LE(number: Int64, offset: Int) {
+    public mutating func writeUInt32LE(number: Int64, offset: Int) {
         self[offset] = UInt8(number & 0xff)
         self[offset + 1] = UInt8(number >> 8 & 0xff)
         self[offset + 2] = UInt8(number >> 16 & 0xff)
@@ -164,7 +164,7 @@ extension Array where Element == UInt8  {
     
     
     /// Will break a number to 8 (little endian) bytes and add them to the buffer starting a given offset
-    mutating func writeUInt64LE(number: Int, offset: Int) {
+    public mutating func writeUInt64LE(number: Int, offset: Int) {
         self[offset] = UInt8(number & 0xff)
         self[offset + 1] = UInt8(number >> 8 & 0xff)
         self[offset + 2] = UInt8(number >> 16 & 0xff)
