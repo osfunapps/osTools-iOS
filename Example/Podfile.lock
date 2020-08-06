@@ -1,0 +1,16 @@
+PODS:
+  - OsTools (0.1.0)
+
+DEPENDENCIES:
+  - OsTools (from `../`)
+
+EXTERNAL SOURCES:
+  OsTools:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  OsTools: 8a63aff14b749ca16afb1c0f2ff5388e6d73e121
+
+PODFILE CHECKSUM: a96c57aa96fda86571eb40f38f8deffd5d6991db
+
+COCOAPODS: 1.9.3

@@ -1,0 +1,22 @@
+{
+  "name": "OsTools",
+  "version": "0.1.0",
+  "summary": "A short description of OsTools.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/osfunapps/OsTools",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "osfunapps": "osfunapps@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/osfunapps/OsTools.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "OsTools/Classes/**/*"
+}

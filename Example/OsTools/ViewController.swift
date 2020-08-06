@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import OsTools
 
 class ViewController: UIViewController {
 
