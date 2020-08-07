@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'OsTools'
-  s.version          = '0.2.0'
+  s.version          = '0.3.1'
   s.summary          = 'a bunch of tools for iOS/OSX development'
 
 # This description is used to generate tags and improve search results.
@@ -30,8 +30,9 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '8.0'
 
-  s.source_files = 'OsTools/Classes/**/*'
-  
+#  s.source_files  = 'Classes/*.{h,m,swift}'
+    s.source_files = 'Classes/**/*'
+    
   # s.resource_bundles = {
   #   'OsTools' => ['OsTools/Assets/*.png']
   # }
