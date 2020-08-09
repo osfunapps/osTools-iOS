@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'OsTools'
-  s.version          = '0.3.1'
+  s.version          = '0.3.3'
   s.summary          = 'a bunch of tools for iOS/OSX development'
 
 # This description is used to generate tags and improve search results.
@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   s.description      = <<-DESC
 "this module contains fundamental tools and extensions to implement in an iOS/OSX project."
                        DESC
-  s.swift_versions = "4.0"
+  s.swift_versions = "5.0"
   s.homepage         = 'https://github.com/osfunapps/osTools-iOS'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
