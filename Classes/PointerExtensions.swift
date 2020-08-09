@@ -82,21 +82,21 @@ extension Int {
     
     /// Will break a number to a single byte and add it to a data object
     public func writeUInt8() -> Data {
-        return Data(bytes: [UInt8(self)])
+        return Data([UInt8(self)])
     }
     
     /// Will break a number to 2 (big endian) bytes and add them to a data object
        public func writeUInt16BE() -> Data {
            let uInt8Value0 = UInt8(self >> 8)
            let uInt8Value1 = UInt8(self & 0x00ff)
-           return Data(bytes: [uInt8Value0, uInt8Value1])
+           return Data([uInt8Value0, uInt8Value1])
        }
        
     /// Will break a number to 2 (little endian) byte array and add it to a data object
     public func writeUInt16LE() -> Data {
         let byte1 = UInt8(self & 0xff)
         let byte2 = UInt8(self >> 8 & 0xff)
-        return Data(bytes: [byte1, byte2])
+        return Data([byte1, byte2])
     }
     
     /// Will break a number to 4 (big endian) bytes and add it to a data object
@@ -107,7 +107,7 @@ extension Int {
           let byte3 = UInt8((self & 0x00FF0000) >> 16) // 0
           let intt = (__data & (0xFF000000 as UInt32))
           let byte4 = UInt8(intt >> 24) // 0
-          return Data(bytes: [byte4, byte3, byte2, byte1])
+          return Data([byte4, byte3, byte2, byte1])
       }
     
     /// Will break a number to 4 (little endian) bytes and add them to a data object
@@ -116,7 +116,7 @@ extension Int {
         let byte2 = UInt8(self >> 8 & 0xff)
         let byte3 = UInt8(self >> 16 & 0xff)
         let byte4 = UInt8(self >> 24 & 0xff)
-        return Data(bytes: [byte1, byte2, byte3, byte4])
+        return Data([byte1, byte2, byte3, byte4])
     }
     
     
@@ -135,7 +135,7 @@ extension Int {
         let byte6 = UInt8(self >> 40 & 0xff)
         let byte7 = UInt8(self >> 48 & 0xff)
         let byte8 = UInt8(self >> 56 & 0xff)
-        return Data(bytes: [byte1, byte2, byte3, byte4, byte5, byte6, byte7, byte8])
+        return Data([byte1, byte2, byte3, byte4, byte5, byte6, byte7, byte8])
     }
 }
 
