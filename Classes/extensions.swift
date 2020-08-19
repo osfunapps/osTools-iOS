@@ -144,7 +144,8 @@ extension UIView {
         }
     }
     
-    /// Will stop a rotating view animation
+    /// Will stop a rotating
+    /// view animation
     public func stopRotating() {
         if layer.animation(forKey: UIView.kRotationAnimationKey) != nil {
             layer.removeAnimation(forKey: UIView.kRotationAnimationKey)
@@ -175,6 +176,84 @@ extension UIView {
         isUserInteractionEnabled = show
         hide(!show)
     }
+    
+    /// Will add a shadow to a view
+      public func dropShadow(scale: Bool = true, shadowRadius: CGFloat = 2.5, opacity: Float = 1) {
+          layer.masksToBounds = false
+          layer.shadowColor = UIColor.black.cgColor
+          layer.shadowOpacity = opacity
+          layer.shadowOffset = .zero
+          layer.shadowRadius = shadowRadius
+          layer.shouldRasterize = true
+          layer.rasterizationScale = scale ? UIScreen.main.scale : 1
+      }
+      
+      /// Will adjust view leading and trailing according to parent
+      public func pinToParentHorizontally(constant: CGFloat = 0) {
+          toLeadingOfParent(constant: constant)
+          toTrailingOfParent(constant: constant)
+      }
+      
+      /// Will put the view at the start of the parent
+      public func toLeadingOfParent(constant: CGFloat = 0) {
+          leadingAnchor.constraint(equalTo: superview!.leadingAnchor, constant: constant).isActive = true
+      }
+      
+      /// Will put the view at the end of the parent
+      public func toTrailingOfParent(constant: CGFloat = 0) {
+          trailingAnchor.constraint(equalTo: superview!.trailingAnchor, constant: -constant).isActive = true
+      }
+      
+      /// Will put the view at the x center of the parent
+      public func centralizeHorizontalInParent() {
+          centerXAnchor.constraint(equalTo: superview!.centerXAnchor).isActive = true
+      }
+      
+      /// Will put the view at the y center of the parent
+      public func centralizeVerticalInParent() {
+          centerYAnchor.constraint(equalTo: superview!.centerYAnchor).isActive = true
+      }
+      
+      
+      /// Will set the width constraint of a view
+      public func setWidth(width: CGFloat) {
+          widthAnchor.constraint(equalToConstant: width).isActive = true
+      }
+      
+      /// Will set the height constraint of a view
+      public func setHeight(height: CGFloat) {
+          heightAnchor.constraint(equalToConstant: height).isActive = true
+      }
+      
+      /// Will attach the view to the top of it's parent
+      public func pinToParentTop(constant: CGFloat = 0) {
+          topAnchor.constraint(equalTo: superview!.topAnchor, constant: constant).isActive = true
+      }
+      
+      /// Will attach the view to the bottom of it's parent
+      public func pinToParentBottom(constant: CGFloat = 0) {
+          bottomAnchor.constraint(equalTo: superview!.bottomAnchor, constant: constant).isActive = true
+      }
+    
+    /// Will return the currently focused view
+    public var firstResponder: UIView? {
+           guard !isFirstResponder else { return self }
+
+           for subview in subviews {
+               if let firstResponder = subview.firstResponder {
+                   return firstResponder
+               }
+           }
+
+           return nil
+       }
+    
+      
+      /// Will force fresh the layout of the view
+      public func refreshLayout() {
+          setNeedsLayout()
+          layoutIfNeeded()
+      }
     
 }
 
@@ -207,7 +286,15 @@ extension UILabel {
         attributedText = regularString
     }
     
-    
+    /// will set the text in the label if exists else hide the label
+    public func setAttribTextOrHide(_ str: String?) {
+        if(str == nil || str == ""){
+            hide(true)
+        } else {
+            hide(false)
+            setAttributedText(str!)
+        }
+      }
 }
 
 extension String {
@@ -402,5 +489,23 @@ extension CountableClosedRange where Bound == Int {
     /// Will return a random value between a close range of numbers. To use: (0...500).randomValue
     public var randomValue: Int {
         return lowerBound + Int(arc4random_uniform(UInt32(upperBound - lowerBound)))
+    }
+}
+
+extension UITextField {
+    
+    /// Will add a done button to a text field. When clicked, it will resign the first responder. Notice: If you want to add a done button to multiple fields, don't use this function
+    public func addDoneButton(title: String = "Done", style: UIBarStyle = .default) {
+        
+        let applyToolbar = UIToolbar()
+        applyToolbar.barStyle = style
+        
+        applyToolbar.items=[
+            UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(title: title, style: .done, target: self, action: #selector(resignFirstResponder))
+        ]
+        
+        applyToolbar.sizeToFit()
+        inputAccessoryView = applyToolbar
     }
 }

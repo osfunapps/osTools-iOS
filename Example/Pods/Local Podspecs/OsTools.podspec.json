@@ -1,9 +1,10 @@
 {
   "name": "OsTools",
-  "version": "0.1.0",
-  "summary": "A short description of OsTools.",
-  "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/osfunapps/OsTools",
+  "version": "0.3.4",
+  "summary": "a bunch of tools for iOS/OSX development",
+  "description": "\"this module contains fundamental tools and extensions to implement in an iOS/OSX project.\"",
+  "swift_versions": "5.0",
+  "homepage": "https://github.com/osfunapps/osTools-iOS",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -12,11 +13,12 @@
     "osfunapps": "osfunapps@gmail.com"
   },
   "source": {
-    "git": "https://github.com/osfunapps/OsTools.git",
-    "tag": "0.1.0"
+    "git": "https://github.com/osfunapps/osTools-iOS.git",
+    "tag": "0.3.4"
   },
   "platforms": {
-    "ios": "8.0"
+    "ios": "10.0"
   },
-  "source_files": "OsTools/Classes/**/*"
+  "source_files": "Classes/**/*",
+  "swift_version": "5.0"
 }
