@@ -19,7 +19,7 @@
 		9F8B942216AA60BC842285589F5202ED /* OsTools-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CF9A3DCC3FF05FC1B003FAEF00E07029 /* OsTools-dummy.m */; };
 		C527877A03D7076388641759805FC52D /* Pods-OsTools_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F58864E782A4CD419172E53D8912217 /* Pods-OsTools_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D57A0AB122CAB7C12874A0B09973E134 /* Pods-OsTools_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 7DDC6F78A311E20812EEA15C419B5207 /* Pods-OsTools_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F4AA58C9252124A0006828F5 /* OtherTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AA58C8252124A0006828F5 /* OtherTools.swift */; };
+		F4AA58F8252126F2006828F5 /* OtherTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AA58F7252126F2006828F5 /* OtherTools.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,7 +73,7 @@
 		EF8F0B6DE1B1709FA9B9B34463D7E287 /* extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = extensions.swift; path = Classes/extensions.swift; sourceTree = "<group>"; };
 		EFCA5FD34B2B25E26CEB899903761D65 /* Pods-OsTools_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-OsTools_Example.modulemap"; sourceTree = "<group>"; };
 		F2B6474F4F80C031D17713926F48FEA2 /* Pods-OsTools_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OsTools_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		F4AA58C8252124A0006828F5 /* OtherTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherTools.swift; sourceTree = "<group>"; };
+		F4AA58F7252126F2006828F5 /* OtherTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OtherTools.swift; path = Classes/OtherTools.swift; sourceTree = "<group>"; };
 		F507B070677E31357E3EC2C059500545 /* Pods-OsTools_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-OsTools_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		FD7EA28ED7E6DD0EFF1E2EA45C79F287 /* Pods-OsTools_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OsTools_Example.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -109,10 +109,10 @@
 		14B08D5CA32E5EAE2CCA6DD0610EC442 /* OsTools */ = {
 			isa = PBXGroup;
 			children = (
+				F4AA58F7252126F2006828F5 /* OtherTools.swift */,
 				EF8F0B6DE1B1709FA9B9B34463D7E287 /* extensions.swift */,
 				DE7065A72D15F5B5947270E0EE656022 /* PointerExtensions.swift */,
 				86AE7ED672CC98971757E02328D7E14C /* Tools.swift */,
-				F4AA58C8252124A0006828F5 /* OtherTools.swift */,
 				D99F977C45073F6A8E48C4C63A85E487 /* Pod */,
 				A502AA0B63D4208F3F8398E22B1E1FFE /* Support Files */,
 			);
@@ -395,7 +395,7 @@
 				8AFD4B4361BE30F3A521F52D8E9103E5 /* extensions.swift in Sources */,
 				9F8B942216AA60BC842285589F5202ED /* OsTools-dummy.m in Sources */,
 				4B5B413FB1C4809B2FF61E02E235095F /* PointerExtensions.swift in Sources */,
-				F4AA58C9252124A0006828F5 /* OtherTools.swift in Sources */,
+				F4AA58F8252126F2006828F5 /* OtherTools.swift in Sources */,
 				0EAD15B36C8AD1E73587ECD271D466DD /* Tools.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
