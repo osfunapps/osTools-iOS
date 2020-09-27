@@ -67,16 +67,6 @@ extension Array where Element: Equatable {
     }
 }
 
-// custom error
-public struct AppError : Error {
-    let description : String
-
-    var localizedDescription: String {
-        return NSLocalizedString(description, comment: "")
-    }
-}
-
-
 extension UIView {
     
     /// Will hide/show a view
@@ -539,7 +529,7 @@ extension UIApplication {
         }
     }
     
-    static func openAppSetting() {
+    public static func openAppSetting() {
         if let url = URL(string:UIApplication.openSettingsURLString) {
             if UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
