@@ -264,8 +264,8 @@ extension UIView {
       
       /// Will adjust view leading and trailing according to parent
       public func pinToParentHorizontally(constant: CGFloat = 0) {
-          toLeadingOfParent(constant: constant)
-          toTrailingOfParent(constant: constant)
+          pinToLeadingOfParent(constant: constant)
+          pinToTrailingOfParent(constant: constant)
       }
       
       /// Will put the view at the start of the parent
