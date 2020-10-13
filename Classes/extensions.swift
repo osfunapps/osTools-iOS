@@ -9,6 +9,27 @@
 import Foundation
 import UIKit
 
+extension UIViewController {
+    
+    /// Will return the view controller as defined in the storyboard
+    public func getVC<T: UIViewController>(withIdentifier: String) -> T {
+        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: withIdentifier) as! T
+    }
+    
+}
+
+extension UIViewController {
+    
+    /// Will set a custom back button. Make sure to add the image cause it's an image based back button
+    public func setCustomBackBtn(imageName: String, action: Selector) {
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: UIImage(named: imageName),
+            style: .plain,
+            target: self,
+            action: action
+        )
+    }
+}
 
 extension UIColor {
     
@@ -69,6 +90,51 @@ extension Array where Element: Equatable {
 
 extension UIView {
     
+    /// Will add a blurry effect to a view.
+    /// NOTICE: the blurAnimatorMember should be saved in your class, as member, and sent here
+    public func setBlurEffect(blurAnimatorMember: inout UIViewPropertyAnimator?,
+                              viewTag: Int = 9090,
+                              blurIntensity: CGFloat = 0.15,
+                              colorIfBlurNoAvailable: UIColor = .black) -> Bool {
+        
+        if !UIAccessibility.isReduceTransparencyEnabled {
+            
+            backgroundColor = .clear
+            let blurEffectView = UIVisualEffectView()
+            blurEffectView.backgroundColor = .clear
+            blurEffectView.frame = bounds
+            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            addSubview(blurEffectView)
+            
+            blurAnimatorMember = UIViewPropertyAnimator(duration: 1, curve: .linear) { [blurEffectView] in
+                blurEffectView.effect = UIBlurEffect(style: .light)
+            }
+            
+            blurAnimatorMember!.fractionComplete = blurIntensity
+            blurEffectView.tag = viewTag
+            blurEffectView.alpha = 0
+            insertSubview(blurEffectView, at: 0)
+            blurEffectView.fadeIn {
+                
+            }
+            return true
+        } else {
+            backgroundColor = colorIfBlurNoAvailable
+            return false
+        }
+    }
+    
+    /// Will add a top border to a view
+    public func addTopBorder(percentsFromWidth: CGFloat = 1.0, color: UIColor = #colorLiteral(red: 0.8039215686, green: 0.8039215686, blue: 0.8039215686, alpha: 0.66), height: CGFloat = 1.0 ) {
+        let border = CALayer()
+        border.frame = CGRect(x: frame.width * ((1.0 - percentsFromWidth)/2),
+                                 y: 0,
+                                 width: frame.width * percentsFromWidth,
+                                 height: height)
+        border.backgroundColor = color.cgColor
+        layer.addSublayer(border)
+    }
+    
     /// Will hide/show a view
     public func hide(_ hide: Bool){
         DispatchQueue.main.async {
@@ -83,6 +149,7 @@ extension UIView {
                repeatCount: Float = 2,
                allowUserInteractionDuringBlink: Bool = true) {
 
+        let initialAlpha = self.alpha
         var options: UIView.AnimationOptions = [.curveEaseInOut, .repeat, .autoreverse]
         if allowUserInteractionDuringBlink {
             options.insert(.allowUserInteraction)
@@ -91,6 +158,8 @@ extension UIView {
         UIView.animate(withDuration: duration, delay: delay, options: options, animations: {
             UIView.setAnimationRepeatCount(repeatCount)
             self.alpha = alpha
+        }, completion: { completed in
+            self.alpha = initialAlpha
         })
     }
     
@@ -200,13 +269,21 @@ extension UIView {
       }
       
       /// Will put the view at the start of the parent
-      public func toLeadingOfParent(constant: CGFloat = 0) {
+    public func pinToLeadingOfParent(constant: CGFloat = 0, toMargins: Bool = false) {
+        if toMargins {
+            leadingAnchor.constraint(equalTo: superview!.layoutMarginsGuide.leadingAnchor, constant: constant).isActive = true
+        } else {
           leadingAnchor.constraint(equalTo: superview!.leadingAnchor, constant: constant).isActive = true
+        }
       }
       
       /// Will put the view at the end of the parent
-      public func toTrailingOfParent(constant: CGFloat = 0) {
+    public func pinToTrailingOfParent(constant: CGFloat = 0, toMargins: Bool = false) {
+        if toMargins {
+            trailingAnchor.constraint(equalTo: superview!.layoutMarginsGuide.trailingAnchor, constant: constant).isActive = true
+        } else {
           trailingAnchor.constraint(equalTo: superview!.trailingAnchor, constant: -constant).isActive = true
+        }
       }
       
       /// Will put the view at the x center of the parent
@@ -230,15 +307,24 @@ extension UIView {
           heightAnchor.constraint(equalToConstant: height).isActive = true
       }
       
+    
       /// Will attach the view to the top of it's parent
-      public func pinToParentTop(constant: CGFloat = 0) {
-          topAnchor.constraint(equalTo: superview!.topAnchor, constant: constant).isActive = true
+    public func pinToParentTop(constant: CGFloat = 0, toMargins: Bool = false) {
+        if toMargins {
+            topAnchor.constraint(equalTo: superview!.layoutMarginsGuide.topAnchor, constant: constant).isActive = true
+        } else {
+            topAnchor.constraint(equalTo: superview!.topAnchor, constant: constant).isActive = true
+        }
       }
-      
-      /// Will attach the view to the bottom of it's parent
-      public func pinToParentBottom(constant: CGFloat = 0) {
-          bottomAnchor.constraint(equalTo: superview!.bottomAnchor, constant: constant).isActive = true
-      }
+    
+    /// Will attach the view to the bottom of it's parent
+    public func pinToParentBottom(constant: CGFloat = 0, toMargins: Bool = false) {
+        if toMargins {
+            bottomAnchor.constraint(equalTo: superview!.layoutMarginsGuide.bottomAnchor, constant: constant).isActive = true
+        } else {
+            bottomAnchor.constraint(equalTo: superview!.bottomAnchor, constant: constant).isActive = true
+        }
+    }
     
     /// Will return the currently focused view
     public var firstResponder: UIView? {
@@ -555,3 +641,20 @@ extension String {
 }
 
 
+extension UIStackView {
+    
+    /// Will remove all of the subviews of the stack view
+    public func removeAllArrangedSubviews() {
+        
+        let removedSubviews = arrangedSubviews.reduce([]) { (allSubviews, subview) -> [UIView] in
+            self.removeArrangedSubview(subview)
+            return allSubviews + [subview]
+        }
+        
+        // Deactivate all constraints
+        NSLayoutConstraint.deactivate(removedSubviews.flatMap({ $0.constraints }))
+        
+        // Remove the views from self
+        removedSubviews.forEach({ $0.removeFromSuperview() })
+    }
+}
