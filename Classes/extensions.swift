@@ -91,7 +91,7 @@ extension Array where Element: Equatable {
 extension UIView {
     
     /// Will return the parent view controller, if available
-    var parentViewController: UIViewController? {
+    public var parentViewController: UIViewController? {
         var parentResponder: UIResponder? = self
         while parentResponder != nil {
             parentResponder = parentResponder?.next
