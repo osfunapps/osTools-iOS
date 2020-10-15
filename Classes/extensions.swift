@@ -90,6 +90,19 @@ extension Array where Element: Equatable {
 
 extension UIView {
     
+    /// Will return the parent view controller, if available
+    var parentViewController: UIViewController? {
+        var parentResponder: UIResponder? = self
+        while parentResponder != nil {
+            parentResponder = parentResponder?.next
+            if let viewController = parentResponder as? UIViewController {
+                return viewController
+            }
+        }
+        return nil
+    }
+
+    
     /// Will add a blurry effect to a view.
     /// NOTICE: the blurAnimatorMember should be saved in your class, as member, and sent here
     public func setBlurEffect(blurAnimatorMember: inout UIViewPropertyAnimator?,
@@ -263,67 +276,98 @@ extension UIView {
       }
       
       /// Will adjust view leading and trailing according to parent
-      public func pinToParentHorizontally(constant: CGFloat = 0) {
-          pinToLeadingOfParent(constant: constant)
-          pinToTrailingOfParent(constant: constant)
-      }
+    @discardableResult
+    public func pinToParentHorizontally(constant: CGFloat = 0) -> [NSLayoutConstraint]{
+        var constraints = [NSLayoutConstraint]()
+        constraints.append(pinToLeadingOfParent(constant: constant))
+        constraints.append(pinToTrailingOfParent(constant: constant))
+        return constraints
+    }
       
       /// Will put the view at the start of the parent
-    public func pinToLeadingOfParent(constant: CGFloat = 0, toMargins: Bool = false) {
+    @discardableResult
+    public func pinToLeadingOfParent(toMargins: Bool = false, constant: CGFloat = 0) -> NSLayoutConstraint {
+        var constraint: NSLayoutConstraint!
         if toMargins {
-            leadingAnchor.constraint(equalTo: superview!.layoutMarginsGuide.leadingAnchor, constant: constant).isActive = true
+            constraint = leadingAnchor.constraint(equalTo: superview!.layoutMarginsGuide.leadingAnchor, constant: constant)
         } else {
-          leadingAnchor.constraint(equalTo: superview!.leadingAnchor, constant: constant).isActive = true
+            constraint = leadingAnchor.constraint(equalTo: superview!.leadingAnchor, constant: constant)
         }
+        constraint.isActive = true
+        return constraint
       }
       
-      /// Will put the view at the end of the parent
-    public func pinToTrailingOfParent(constant: CGFloat = 0, toMargins: Bool = false) {
+    /// Will put the view at the end of the parent
+    @discardableResult
+    public func pinToTrailingOfParent(toMargins: Bool = false, constant: CGFloat = 0) -> NSLayoutConstraint {
+        var constraint: NSLayoutConstraint
         if toMargins {
-            trailingAnchor.constraint(equalTo: superview!.layoutMarginsGuide.trailingAnchor, constant: constant).isActive = true
+            constraint = trailingAnchor.constraint(equalTo: superview!.layoutMarginsGuide.trailingAnchor, constant: constant)
         } else {
-          trailingAnchor.constraint(equalTo: superview!.trailingAnchor, constant: -constant).isActive = true
+            constraint = trailingAnchor.constraint(equalTo: superview!.trailingAnchor, constant: -constant)
         }
-      }
-      
-      /// Will put the view at the x center of the parent
-      public func centralizeHorizontalInParent() {
-          centerXAnchor.constraint(equalTo: superview!.centerXAnchor).isActive = true
-      }
-      
-      /// Will put the view at the y center of the parent
-      public func centralizeVerticalInParent() {
-          centerYAnchor.constraint(equalTo: superview!.centerYAnchor).isActive = true
-      }
-      
-      
-      /// Will set the width constraint of a view
-      public func setWidth(width: CGFloat) {
-          widthAnchor.constraint(equalToConstant: width).isActive = true
-      }
-      
-      /// Will set the height constraint of a view
-      public func setHeight(height: CGFloat) {
-          heightAnchor.constraint(equalToConstant: height).isActive = true
-      }
-      
+        constraint.isActive = true
+        return constraint
+    }
     
-      /// Will attach the view to the top of it's parent
-    public func pinToParentTop(constant: CGFloat = 0, toMargins: Bool = false) {
+    /// Will put the view at the x center of the parent
+    @discardableResult
+    public func centralizeHorizontalInParent() -> NSLayoutConstraint {
+        let constraint = centerXAnchor.constraint(equalTo: superview!.centerXAnchor)
+        constraint.isActive = true
+        return constraint
+    }
+    
+    /// Will put the view at the y center of the parent
+    @discardableResult
+    public func centralizeVerticalInParent() -> NSLayoutConstraint {
+        let constraint = centerYAnchor.constraint(equalTo: superview!.centerYAnchor)
+        constraint.isActive = true
+        return constraint
+    }
+    
+    
+    /// Will set the width constraint of a view
+    @discardableResult
+      public func setWidth(width: CGFloat) -> NSLayoutConstraint {
+          let constraint = widthAnchor.constraint(equalToConstant: width)
+        constraint.isActive = true
+        return constraint
+      }
+    
+    /// Will set the height constraint of a view
+    @discardableResult
+    public func setHeight(height: CGFloat) -> NSLayoutConstraint {
+        let constraint = heightAnchor.constraint(equalToConstant: height)
+        constraint.isActive = true
+        return constraint
+    }
+    
+    
+    /// Will attach the view to the top of it's parent
+    @discardableResult
+    public func pinToParentTop(toMargins: Bool = false, constant: CGFloat = 0) -> NSLayoutConstraint {
+        var constraint: NSLayoutConstraint
         if toMargins {
-            topAnchor.constraint(equalTo: superview!.layoutMarginsGuide.topAnchor, constant: constant).isActive = true
+            constraint = topAnchor.constraint(equalTo: superview!.layoutMarginsGuide.topAnchor, constant: constant)
         } else {
-            topAnchor.constraint(equalTo: superview!.topAnchor, constant: constant).isActive = true
+            constraint = topAnchor.constraint(equalTo: superview!.topAnchor, constant: constant)
         }
+        constraint.isActive = true
+        return constraint
       }
     
     /// Will attach the view to the bottom of it's parent
-    public func pinToParentBottom(constant: CGFloat = 0, toMargins: Bool = false) {
+    @discardableResult
+    public func pinToParentBottom(toMargins: Bool = false, constant: CGFloat = 0) -> NSLayoutConstraint {
+        var constraint: NSLayoutConstraint
         if toMargins {
-            bottomAnchor.constraint(equalTo: superview!.layoutMarginsGuide.bottomAnchor, constant: constant).isActive = true
+            constraint = bottomAnchor.constraint(equalTo: superview!.layoutMarginsGuide.bottomAnchor, constant: constant)
         } else {
-            bottomAnchor.constraint(equalTo: superview!.bottomAnchor, constant: constant).isActive = true
+            constraint = bottomAnchor.constraint(equalTo: superview!.bottomAnchor, constant: constant)
         }
+        constraint.isActive = true
+        return constraint
     }
     
     /// Will return the currently focused view
