@@ -178,25 +178,23 @@ extension UIView {
     
     
     /// Will do a fade in effect on a view
-    public func fadeIn(_ completion: @escaping () -> Void){
-        self.alpha = 0.0
-        self.hide(false)
-        UIView.animate(withDuration: 0.5, delay: 0, options: UIView.AnimationOptions.curveEaseIn, animations: {
-            self.alpha = 1.0
-        }, completion: { _ in
-            completion()
-        })
+    public func fadeIn(withDuration: TimeInterval = 0.5, delay: TimeInterval = 0, toAlpha: CGFloat = 1, _ completion: @escaping () -> Void){
+        fade(fromAlpha: alpha,
+             toAlpha: 1.0,
+             animationOptions: UIView.AnimationOptions.curveEaseIn,
+             duration: withDuration,
+             delay: delay,
+             completion)
     }
     
     /// Will do a fade out effect on a view
-    public func fadeOut(_ completion: @escaping () -> Void){
-        self.alpha = 1.0
-        UIView.animate(withDuration: 0.5, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: {
-            self.alpha = 0.0
-        }, completion: { _ in
-            self.hide(true)
-            completion()
-        })
+    public func fadeOut(withDuration: TimeInterval = 0.5, delay: TimeInterval = 0, toAlpha: CGFloat = 1, _ completion: @escaping () -> Void){
+        fade(fromAlpha: alpha,
+             toAlpha: 0,
+             animationOptions: UIView.AnimationOptions.curveEaseOut,
+             duration: withDuration,
+             delay: delay,
+             completion)
     }
     
     
@@ -205,9 +203,10 @@ extension UIView {
               toAlpha: CGFloat,
               animationOptions: UIView.AnimationOptions,
               duration: TimeInterval = 0.5,
-              _ completion: @escaping () -> Void){
+              delay: TimeInterval = 0,
+              _ completion: @escaping () -> Void) {
         self.alpha = fromAlpha
-        UIView.animate(withDuration: duration, delay: 0, options: animationOptions, animations: {
+        UIView.animate(withDuration: duration, delay: delay, options: animationOptions, animations: {
             self.alpha = toAlpha
         }, completion: { _ in
             completion()
