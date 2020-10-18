@@ -238,6 +238,18 @@ extension UIView {
         }
     }
     
+    /// Will return the parent carrying a tag
+    public func findParentBy(tag: Int) -> UIView? {
+        if let parent = superview {
+            if parent.tag == tag {
+                return parent
+            } else {
+                return parent.findParentBy(tag: tag)
+            }
+        }
+        return nil
+    }
+    
     
     /// Will recursively look for the view with the accessibility Identifier specified
     public func viewWith(_ accessibilityIdentifier: String) -> UIView? {
