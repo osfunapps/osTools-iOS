@@ -138,7 +138,6 @@ public class ByteBufferWrapper {
           let data = self._packet.slice(self._offset, self._offset + Int(dataLength));
           self._offset = (self._offset + 1 + Int(dataLength));
           return data.toUTFString()!
-          return str
       }
       
       func readLESGString() -> String {
@@ -147,7 +146,6 @@ public class ByteBufferWrapper {
           
           self._offset = self._offset + dataLength;
           return data.toUTFString()!
-          return str
       }
       
       
