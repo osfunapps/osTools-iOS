@@ -14,7 +14,7 @@ public class ByteBufferWrapper {
     private var _totalLength: Int!
     var _offset = 0
     
-    init(packet: [UInt8] = [UInt8]()) {
+    public init(packet: [UInt8] = [UInt8]()) {
         self._packet = packet
         _totalLength = packet.count
         _offset = 0
@@ -23,7 +23,7 @@ public class ByteBufferWrapper {
     
     // MARK: - write
     
-    func writeBytes (data: [UInt8]? = nil, type: Any? = nil) -> [UInt8]? {
+    public func writeBytes (data: [UInt8]? = nil, type: Any? = nil) -> [UInt8]? {
         if let _data = data {
             self._add(data: _data)
         }
@@ -32,7 +32,7 @@ public class ByteBufferWrapper {
     }
     
     /// will write a string to the packet
-    func writeSGString(data: String) {
+    public func writeSGString(data: String) {
         let uInt8Value0 = UInt8(data.count >> 8)
         let uInt8Value1 = UInt8(data.count & 0x00ff)
         let lengthBuffer: [UInt8] = [uInt8Value0, uInt8Value1]
@@ -47,7 +47,7 @@ public class ByteBufferWrapper {
     
     
     /// will write a single byte to the buffer
-    func writeUInt8(data: Int?) {
+    public func writeUInt8(data: Int?) {
         var bytes = [UInt8]()
         if let _data = data {
             let uInt8Value0 = UInt8(_data)
@@ -58,7 +58,7 @@ public class ByteBufferWrapper {
 
     
     /// will write 2 bytes to the packet
-    func writeUInt16(data: Int?) {
+    public func writeUInt16(data: Int?) {
         var bytes = [UInt8]()
         if let _data = data {
             let uInt8Value0 = UInt8(_data >> 8)
@@ -71,7 +71,7 @@ public class ByteBufferWrapper {
     }
     
     /// will write 8 bytes to the packet
-    func writeUInt64LE(value: Int) {
+    public func writeUInt64LE(value: Int) {
         let byte1 = UInt8(value & 0xff)
         let byte2 = UInt8(value >> 8 & 0xff)
         let byte3 = UInt8(value >> 16 & 0xff)
@@ -86,7 +86,7 @@ public class ByteBufferWrapper {
     
     
     /// will write 4 bytes to the packet
-    func writeUInt32(data: Int?) {
+    public func writeUInt32(data: Int?) {
         var bytes = [UInt8]()
         if let _data = data {
             let __data = UInt32(_data)
@@ -103,7 +103,7 @@ public class ByteBufferWrapper {
         //        self._packet = self._packet + bytes
     }
     
-    func writeUInt32LE(value: Int) {
+    public func writeUInt32LE(value: Int) {
         let byte1 = UInt8(value & 0xff)
         let byte2 = UInt8(value >> 8 & 0xff)
         let byte3 = UInt8(value >> 16 & 0xff)
@@ -111,14 +111,14 @@ public class ByteBufferWrapper {
         self._add(data: [byte1, byte2, byte3, byte4])
     }
     
-    func writeUInt16LE(value: Int) {
+    public func writeUInt16LE(value: Int) {
         let byte1 = UInt8(value & 0xff)
         let byte2 = UInt8(value >> 8 & 0xff)
         self._add(data: [byte1, byte2])
     }
     
     
-    func writeFloat32LE(valToAdd: Float) {
+    public func writeFloat32LE(valToAdd: Float) {
         writeUInt32LE(value: Int(valToAdd.bitPattern))
     }
     
@@ -126,7 +126,7 @@ public class ByteBufferWrapper {
     
     
       /// will read a string from the packet
-      func readSGString() -> String? {
+      public func readSGString() -> String? {
           
           guard let dataLength = self.readUInt16() else {
               return nil
@@ -140,7 +140,7 @@ public class ByteBufferWrapper {
           return data.toUTFString()!
       }
       
-      func readLESGString() -> String {
+      public func readLESGString() -> String {
           let dataLength = Int(self.readUInt16LE())
           let data = self._packet.slice(self._offset, self._offset + dataLength);
           
@@ -151,7 +151,7 @@ public class ByteBufferWrapper {
       
       
       /// will read bytes from the packet
-      func readBytes(count: Int? = 0) -> [UInt8] {
+      public func readBytes(count: Int? = 0) -> [UInt8] {
           var data: [UInt8] = [];
           if(count == nil || count! == 0){
               data = self._packet.slice(self._offset);
@@ -167,7 +167,7 @@ public class ByteBufferWrapper {
      
       
       /// will read a single byte from the buffer
-      func readUInt8() -> UInt8? {
+      public func readUInt8() -> UInt8? {
           if self._offset > _packet.count {
               return nil
           }
@@ -196,7 +196,7 @@ public class ByteBufferWrapper {
 
       
       /// will read 4 bytes from the packet
-      func readUInt32() -> UInt32? {
+      public func readUInt32() -> UInt32? {
           if self._offset > _packet.count {
               return nil
           }
@@ -208,14 +208,14 @@ public class ByteBufferWrapper {
       }
 
     
-    func readFloat32LE() -> Float? {
+    public func readFloat32LE() -> Float? {
         guard let ans = readUInt32() else {
             return nil
         }
         return Float.init(bitPattern: ans)
     }
     
-    func readUInt16LE() -> Int {
+    public func readUInt16LE() -> Int {
         let uint16Val = _packet.slice(self._offset).withUnsafeBufferPointer {
             ($0.baseAddress!.withMemoryRebound(to: UInt16.self, capacity: 1) { $0 })
             }.pointee
@@ -223,7 +223,7 @@ public class ByteBufferWrapper {
         return Int(UInt16(littleEndian: uint16Val))
     }
     
-    func readUInt32LE() -> Int {
+    public func readUInt32LE() -> Int {
         let uint32Val = _packet.slice(self._offset).withUnsafeBufferPointer {
             ($0.baseAddress!.withMemoryRebound(to: UInt32.self, capacity: 1) { $0 })
             }.pointee
@@ -232,7 +232,7 @@ public class ByteBufferWrapper {
         return Int(UInt32(littleEndian: uint32Val))
     }
     
-    func readUInt64LE() -> Int {
+    public func readUInt64LE() -> Int {
         let uint64Val = _packet.slice(self._offset).withUnsafeBufferPointer {
             ($0.baseAddress!.withMemoryRebound(to: UInt64.self, capacity: 1) { $0 })
             }.pointee
@@ -248,7 +248,7 @@ public class ByteBufferWrapper {
         self._packet = self._packet + data
     }
     
-    func toBuffer() -> [UInt8] {
+    public func toBuffer() -> [UInt8] {
         return self._packet
     }
 }
