@@ -8,7 +8,7 @@
 import Foundation
 
 /// Just a simple bye buffer. Init to read/write to/from bytes (readUint16, writeUint16 and more...)
-class ByteBufferWrapper {
+public class ByteBufferWrapper {
     
     var _packet: [UInt8]!
     private var _totalLength: Int!
