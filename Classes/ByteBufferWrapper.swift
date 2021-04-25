@@ -137,7 +137,7 @@ public class ByteBufferWrapper {
           
           let data = self._packet.slice(self._offset, self._offset + Int(dataLength));
           self._offset = (self._offset + 1 + Int(dataLength));
-          var str = data.toUTFString()!
+          return data.toUTFString()!
           return str
       }
       
@@ -146,7 +146,7 @@ public class ByteBufferWrapper {
           let data = self._packet.slice(self._offset, self._offset + dataLength);
           
           self._offset = self._offset + dataLength;
-          var str = data.toUTFString()!
+          return data.toUTFString()!
           return str
       }
       
