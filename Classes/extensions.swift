@@ -713,3 +713,56 @@ extension UIStackView {
         removedSubviews.forEach({ $0.removeFromSuperview() })
     }
 }
+
+extension Data {
+    /// Will slice an array from a starting point to an end point
+    public func slice(_ from: Int, _ to: Int? = nil) throws -> Data {
+        var start = from
+        var end = count - 1
+        
+        if from < 0 {
+            if to == nil {
+                let toStart = count + from
+                if(toStart <= 0) {
+                    start = 0
+                } else {
+                    start = count + from
+                }
+                end = count - 1
+            }
+        } else {
+            if let _to = to {
+                start = from
+                if _to <= 0 {
+                    end = count - 1 + _to
+                } else {
+                    end = _to - 1
+                }
+            }
+        }
+        if start == count {
+            if end == count - 1 {
+                return Data()
+            }
+            start = count - 1
+        }
+        if start > end  {
+            end = count - 1
+        }
+        
+        // last fail safe
+        if start > end {
+            throw SliceError.outOfBoundsException
+        }
+        
+        return Data(Array(self[start...end]))
+    }
+    
+    var bytes: [UInt8] {
+        return [UInt8](self)
+    }
+}
+
+public enum SliceError: Error {
+    case outOfBoundsException
+}

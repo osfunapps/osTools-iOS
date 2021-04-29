@@ -7,7 +7,7 @@
 
 import Foundation
 
-// custom error
+/// custom error
 public struct AppError : Error {
     
     var description : String
