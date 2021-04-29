@@ -758,7 +758,7 @@ extension Data {
         return Data(Array(self[start...end]))
     }
     
-    var bytes: [UInt8] {
+    public var bytes: [UInt8] {
         return [UInt8](self)
     }
 }
