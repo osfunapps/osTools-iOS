@@ -539,7 +539,7 @@ extension Array where Element == String {
 extension Array where Element: Sequence {
     
     /// will join a bunch of arrays to one array
-    func join() -> Array<Element.Element> {
+    public func join() -> Array<Element.Element> {
         return self.reduce([], +)
     }
 }
