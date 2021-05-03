@@ -11,6 +11,12 @@ import UIKit
 
 public class Tools {
     
+    /// Will imitate System.arraycopy of Java
+    public static func javaSystemArraycopy(_ src: Data, _ srcPos: Int, _ dest: inout Data, _ destPos: Int, _ length: Int) {
+        dest[destPos...(destPos + length - 1)] = src[srcPos...(srcPos + length - 1)]
+    }
+    
+
     /// Will return the current time in seconds
     public static func getCurrentSeconds() ->  TimeInterval {
         return Date().timeIntervalSince1970

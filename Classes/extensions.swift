@@ -61,6 +61,20 @@ extension String
         return prefix(1).uppercased() + self.lowercased().dropFirst()
     }
     
+    
+    /// Will imitate Java's substring(:)
+    public func substring(_ from: Int, _ to: Int) -> String {
+        
+        // as Java behaviour
+        if from == to {
+            return ""
+        }
+        
+        let newStr = self[from...(to - 1)]
+        return newStr
+    }
+    
+    
     /// Will capitalize the first letter of  string
     public mutating func capitalizeFirstLetterInPlace() {
         self = self.capitalizeFirstLetter()
@@ -522,6 +536,13 @@ extension Array where Element == String {
     }
 }
 
+extension Array where Element: Sequence {
+    
+    /// will join a bunch of arrays to one array
+    func join() -> Array<Element.Element> {
+        return self.reduce([], +)
+    }
+}
 
 extension Array where Element == UInt8  {
     
