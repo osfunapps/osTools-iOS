@@ -29,7 +29,7 @@ public class CompletableSemaphore<T> {
     
     public func wait(_ timeoutSecs: Int = -1) -> T {
         if(timeoutSecs != -1) {
-            semaphore.wait(timeout: .now() + .seconds(timeoutSecs))
+            _ = semaphore.wait(timeout: .now() + .seconds(timeoutSecs))
         } else {
             semaphore.wait()
         }
