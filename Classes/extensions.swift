@@ -615,6 +615,9 @@ extension StringProtocol {
             return UInt8(self[startIndex..<endIndex], radix: 16)
         }
     }
+    
+    public var data: Data { .init(utf8) }
+    public var bytes: [UInt8] { .init(utf8) }
 }
 
 extension UUID {
