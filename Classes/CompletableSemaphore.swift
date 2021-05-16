@@ -17,6 +17,8 @@ public class CompletableSemaphore<T> {
     public var isCompleted = false
     public var result: T!
     
+    public init() {}
+    
     public func getCompleted() -> T {
         return result
     }
@@ -26,6 +28,8 @@ public class CompletableSemaphore<T> {
         isCompleted = true
         semaphore.signal()
     }
+    
+    
     
     public func wait(_ timeoutSecs: Int = -1) -> T {
         if(timeoutSecs != -1) {
