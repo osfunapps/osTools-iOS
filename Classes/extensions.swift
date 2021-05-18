@@ -785,6 +785,11 @@ extension Data {
     public var bytes: [UInt8] {
         return [UInt8](self)
     }
+    
+    
+    public func printBytes() {
+        print([UInt8](self))
+    }
 }
 
 public enum SliceError: Error {
