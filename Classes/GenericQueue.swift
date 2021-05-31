@@ -57,8 +57,3 @@ public class GenericQueue<T> {
     }
 }
 
-/// Implement this delegate to get reports about any event related to the generic queue (when flush and more)
-public class GenericQueueDelegate<T> {
-    public func GenericQueueDidFlush(item: T){}
-}
-
