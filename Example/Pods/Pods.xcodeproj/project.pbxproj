@@ -19,7 +19,6 @@
 		C527877A03D7076388641759805FC52D /* Pods-OsTools_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F58864E782A4CD419172E53D8912217 /* Pods-OsTools_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D57A0AB122CAB7C12874A0B09973E134 /* Pods-OsTools_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 7DDC6F78A311E20812EEA15C419B5207 /* Pods-OsTools_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F4598F182663E9EC002A86D4 /* GenericQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4598F172663E9EC002A86D4 /* GenericQueue.swift */; };
-		F4598F21266523E5002A86D4 /* GenericQueueDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4598F20266523E5002A86D4 /* GenericQueueDelegate.swift */; };
 		F460C782264D8D20005BC0DB /* CompletableSemaphore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F460C781264D8D20005BC0DB /* CompletableSemaphore.swift */; };
 		F4AA58F8252126F2006828F5 /* OtherTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AA58F7252126F2006828F5 /* OtherTools.swift */; };
 		F4B82D222639BAAF004A07E6 /* FileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B82D212639BAAF004A07E6 /* FileHandler.swift */; };
@@ -76,7 +75,6 @@
 		EFCA5FD34B2B25E26CEB899903761D65 /* Pods-OsTools_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-OsTools_Example.modulemap"; sourceTree = "<group>"; };
 		F2B6474F4F80C031D17713926F48FEA2 /* Pods-OsTools_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OsTools_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		F4598F172663E9EC002A86D4 /* GenericQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GenericQueue.swift; path = Classes/GenericQueue.swift; sourceTree = "<group>"; };
-		F4598F20266523E5002A86D4 /* GenericQueueDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GenericQueueDelegate.swift; path = Classes/GenericQueueDelegate.swift; sourceTree = "<group>"; };
 		F460C781264D8D20005BC0DB /* CompletableSemaphore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CompletableSemaphore.swift; path = Classes/CompletableSemaphore.swift; sourceTree = "<group>"; };
 		F4AA58F7252126F2006828F5 /* OtherTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OtherTools.swift; path = Classes/OtherTools.swift; sourceTree = "<group>"; };
 		F4B82D212639BAAF004A07E6 /* FileHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileHandler.swift; sourceTree = "<group>"; };
@@ -115,7 +113,6 @@
 		14B08D5CA32E5EAE2CCA6DD0610EC442 /* OsTools */ = {
 			isa = PBXGroup;
 			children = (
-				F4598F20266523E5002A86D4 /* GenericQueueDelegate.swift */,
 				F4598F172663E9EC002A86D4 /* GenericQueue.swift */,
 				F460C781264D8D20005BC0DB /* CompletableSemaphore.swift */,
 				F4AA58F7252126F2006828F5 /* OtherTools.swift */,
@@ -406,7 +403,6 @@
 				9F8B942216AA60BC842285589F5202ED /* OsTools-dummy.m in Sources */,
 				F460C782264D8D20005BC0DB /* CompletableSemaphore.swift in Sources */,
 				F4AA58F8252126F2006828F5 /* OtherTools.swift in Sources */,
-				F4598F21266523E5002A86D4 /* GenericQueueDelegate.swift in Sources */,
 				0EAD15B36C8AD1E73587ECD271D466DD /* Tools.swift in Sources */,
 				F4598F182663E9EC002A86D4 /* GenericQueue.swift in Sources */,
 			);
