@@ -8,21 +8,10 @@
 
 import Foundation
 
-/**
- NOTICE: this file use Zip in cocoa pods. Add in pod file these 2 lines:
- 
- source 'https://github.com/CocoaPods/Specs.git'
- pod 'Zip', '~> 1.1'
- 
- Thanks.
- **/
-//an example to use the file
-
-// a sweet files handler class with a zip example
-public class FileHandler{
+public class FileHandler {
     
     
-    ///will return the file name from a path, with/without the file extension
+    /// Will return the file name from a path, with/without the file extension
     public static func getFileNameFromPath(_ url: URL, _ withExtension: Bool) -> String{
         if(withExtension){
             return url.lastPathComponent
@@ -31,14 +20,13 @@ public class FileHandler{
         }
     }
     
-    /// Will read a file to string
-    public static func readFile(fileName: String, ext: String) -> String? {
-        do {
-            let path = Bundle.main.path(forResource: fileName, ofType: ext)
-            return try String(contentsOfFile: path!, encoding: String.Encoding.utf8)
-        } catch let err {
-            print(err)
-            return nil
+    /// Will check if file or directory exists
+    public static func isFileExists(_ url: URL, isDir: Bool = false) -> Bool {
+        var isDirectory : ObjCBool = ObjCBool(isDir)
+        if FileManager.default.fileExists(atPath: url.path, isDirectory:&isDirectory) {
+            return true
+        } else {
+            return false
         }
     }
     
@@ -53,91 +41,10 @@ public class FileHandler{
         }
     }
     
-    ///will find a file in the current project
+    
+    /// Will find a file in the current project
     public static func findFileInProject(_ fileName: String, _ fileExtension: String) -> URL? {
         return Bundle.main.url(forResource: fileName, withExtension: fileExtension)
-    }
-    
-    
-    /// will find a file in project by extension and prefix or suffix
-    /// todo: filname
-    public static func findFilesInProject(_ fileExtension: String,
-                            fileName: String? = nil,
-                            filePrefix: String? = nil,
-                            fileSuffix: String? = nil) -> [URL] {
-        
-        //find all of the files match by extension
-        var tempFileList =  Bundle.main.urls(forResourcesWithExtension: fileExtension, subdirectory: nil)
-        
-        //find all of the files match by prefix
-        if(filePrefix != nil){
-            tempFileList = tempFileList?.filter{ $0.lastPathComponent.range(of: "^\(filePrefix!)", options: [.regularExpression, .caseInsensitive, .diacriticInsensitive]) != nil
-            }
-        }
-        
-        //find all of the files match by suffix
-        if(fileSuffix != nil){
-            tempFileList = tempFileList?.filter{ $0.lastPathComponent.range(of: "\(fileSuffix!)($|\n)", options: [.regularExpression, .caseInsensitive, .diacriticInsensitive]) != nil
-            }
-        }
-        
-        
-        //build the correct output for the list of files (with the url path and not just the files names)
-        var fileList = [URL]()
-        tempFileList?.forEach{file in fileList.append(file.absoluteURL)}
-        
-        return fileList
-    }
-    
-    /// will get all of the files URLs from a given path
-    public static func getDirectoryContent(_ dirPathURL: URL) -> [URL]?{
-        
-        do {
-            //get files from a folder
-            let fileURLs = try FileManager().contentsOfDirectory(at: dirPathURL, includingPropertiesForKeys: nil)
-            
-            //get the names of the files in the folder
-            return fileURLs
-        } catch {
-            print(error)
-            return nil
-        }
-    }
-    
-    
-    /// will clear all of the files and dirs in a given path
-    public static func removeDirContent(_ dirPath: String) {
-        let fileManager = FileManager.default
-        do {
-            let filePaths = try fileManager.contentsOfDirectory(atPath: dirPath)
-            for filePath in filePaths {
-                try fileManager.removeItem(atPath: "\(dirPath)/\(filePath)")
-            }
-        } catch {
-            print("Could not clear folder: \(error)")
-        }
-    }
-    
-    
-    public static func createFile() {
-        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first! // file url in Documents folder
-        let url = urls.appendingPathComponent("aacSound8.dat").path
-        let fileCreated = FileManager().createFile(atPath: url, contents: Data(), attributes: nil)
-        print("file created? \(fileCreated)")
-    }
-    
-    public static func appendToFile(data: Data) {
-        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first! // file url in Documents folder
-        let url = urls.appendingPathComponent("aacSound8.dat")
-        print(url.path)
-        do {
-            let fileHandle = try FileHandle(forWritingTo: url)
-            fileHandle.seekToEndOfFile()
-            fileHandle.write(data)
-            fileHandle.closeFile()
-        } catch let error {
-            print("Error writing to file \(error)")
-        }
     }
     
     
@@ -174,7 +81,9 @@ public class FileHandler{
     
     /// Will delete a file
     @discardableResult public static func deleteFileOrDir(_ filePathURL: URL) -> Bool {
+        
         do {
+            
             //delete folder
             try FileManager.default.removeItem(at: filePathURL)
             return true
@@ -195,7 +104,6 @@ public class FileHandler{
             print(error)
             return false
         }
-        
     }
     
     /// Will copy a file
@@ -231,6 +139,24 @@ public class FileHandler{
         }
         
         return _basePath
+    }
+    
+    /// Will get all of the files URLs from a given path
+    public static func getDirectoryContent(_ dirPathURL: URL) -> [URL]?{
+        
+        do {
+            let fileManager = FileManager()
+            
+            
+            //get files from a folder
+            let fileURLs = try fileManager.contentsOfDirectory(at: dirPathURL, includingPropertiesForKeys: nil)
+            
+            //get the names of the files in the folder
+            return fileURLs
+        } catch {
+            print(error)
+            return nil
+        }
     }
     
     /// Will get all of the directories URLs from a given path
@@ -277,9 +203,10 @@ extension URL {
         return (try? FileManager.default.contentsOfDirectory(at: self, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles]).filter{ $0.isDirectory }) ?? []
     }
     
-    public mutating func joinPath(path: String) -> URL {
-        self.appendPathComponent(path)
-        return self
+    public func joinPath(path: String) -> URL {
+        var copy = self
+        copy.appendPathComponent(path)
+        return copy
     }
 }
 
