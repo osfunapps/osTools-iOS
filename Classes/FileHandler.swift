@@ -122,7 +122,7 @@ public class FileHandler{
     public static func createFile() {
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first! // file url in Documents folder
         let url = urls.appendingPathComponent("aacSound8.dat").path
-        var fileCreated = FileManager().createFile(atPath: url, contents: Data(), attributes: nil)
+        let fileCreated = FileManager().createFile(atPath: url, contents: Data(), attributes: nil)
         print("file created? \(fileCreated)")
     }
     
