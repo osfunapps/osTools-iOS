@@ -90,6 +90,16 @@ extension String
         return NSString(string: self).boolValue
     }
     
+    /// Will strip all non digits from a string
+    public var digits: String {
+        return components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
+    }
+    
+    /// Will strip all non alpha characters from a string
+    public var alpha: String {
+        return components(separatedBy: CharacterSet.alphanumerics.inverted).joined()
+    }
+    
 }
 
 extension Array where Element: Equatable {
@@ -795,3 +805,4 @@ extension Data {
 public enum SliceError: Error {
     case outOfBoundsException
 }
+
