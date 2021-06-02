@@ -21,7 +21,7 @@
 		F4598F182663E9EC002A86D4 /* GenericQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4598F172663E9EC002A86D4 /* GenericQueue.swift */; };
 		F460C782264D8D20005BC0DB /* CompletableSemaphore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F460C781264D8D20005BC0DB /* CompletableSemaphore.swift */; };
 		F4AA58F8252126F2006828F5 /* OtherTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AA58F7252126F2006828F5 /* OtherTools.swift */; };
-		F4B82D222639BAAF004A07E6 /* FileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B82D212639BAAF004A07E6 /* FileHandler.swift */; };
+		F4DF59D32667BB2700293543 /* FileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DF59D22667BB2700293543 /* FileHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,7 +77,7 @@
 		F4598F172663E9EC002A86D4 /* GenericQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GenericQueue.swift; path = Classes/GenericQueue.swift; sourceTree = "<group>"; };
 		F460C781264D8D20005BC0DB /* CompletableSemaphore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CompletableSemaphore.swift; path = Classes/CompletableSemaphore.swift; sourceTree = "<group>"; };
 		F4AA58F7252126F2006828F5 /* OtherTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OtherTools.swift; path = Classes/OtherTools.swift; sourceTree = "<group>"; };
-		F4B82D212639BAAF004A07E6 /* FileHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileHandler.swift; sourceTree = "<group>"; };
+		F4DF59D22667BB2700293543 /* FileHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileHandler.swift; path = Classes/FileHandler.swift; sourceTree = "<group>"; };
 		F507B070677E31357E3EC2C059500545 /* Pods-OsTools_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-OsTools_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		FD7EA28ED7E6DD0EFF1E2EA45C79F287 /* Pods-OsTools_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OsTools_Example.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -113,6 +113,7 @@
 		14B08D5CA32E5EAE2CCA6DD0610EC442 /* OsTools */ = {
 			isa = PBXGroup;
 			children = (
+				F4DF59D22667BB2700293543 /* FileHandler.swift */,
 				F4598F172663E9EC002A86D4 /* GenericQueue.swift */,
 				F460C781264D8D20005BC0DB /* CompletableSemaphore.swift */,
 				F4AA58F7252126F2006828F5 /* OtherTools.swift */,
@@ -120,7 +121,6 @@
 				86AE7ED672CC98971757E02328D7E14C /* Tools.swift */,
 				D99F977C45073F6A8E48C4C63A85E487 /* Pod */,
 				A502AA0B63D4208F3F8398E22B1E1FFE /* Support Files */,
-				F4B82D212639BAAF004A07E6 /* FileHandler.swift */,
 			);
 			name = OsTools;
 			path = ../..;
@@ -399,7 +399,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AFD4B4361BE30F3A521F52D8E9103E5 /* extensions.swift in Sources */,
-				F4B82D222639BAAF004A07E6 /* FileHandler.swift in Sources */,
+				F4DF59D32667BB2700293543 /* FileHandler.swift in Sources */,
 				9F8B942216AA60BC842285589F5202ED /* OsTools-dummy.m in Sources */,
 				F460C782264D8D20005BC0DB /* CompletableSemaphore.swift in Sources */,
 				F4AA58F8252126F2006828F5 /* OtherTools.swift in Sources */,
