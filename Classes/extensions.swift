@@ -491,6 +491,12 @@ extension String {
         return self
     }
     
+    /// Will turn a data object containing this 64 format string
+    public func toBase64Data() -> Data? {
+        return Data(base64Encoded: self)
+    }
+    
+    
     // substring. To use:
     // let myStr = "lola"
     // let halfHint: String = myStr[0...myStr.count-2]
