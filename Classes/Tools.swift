@@ -169,6 +169,10 @@ public class Tools {
         return randomMACStr
     }
     
+    /// Will join path
+    public static func join(_ arguments: String...) -> String {
+        return NSString.path(withComponents: arguments)
+    }
     
     
 }
