@@ -721,6 +721,12 @@ extension UIApplication {
 
 /// Will return the last index of a char
 extension String {
+    
+    /// will seperate characters every n times with a seperator (like 123456 to 12:34:56)
+    public func separate(every stride: Int = 4, with separator: Character = " ") -> String {
+        return String(enumerated().map { $0 > 0 && $0 % stride == 0 ? [separator, $1] : [$1]}.joined())
+    }
+    
     public func lastIndexOf(string: String) -> Int? {
         guard let index = range(of: string, options: .backwards) else { return nil }
         return self.distance(from: self.startIndex, to: index.lowerBound)
