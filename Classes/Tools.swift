@@ -174,6 +174,23 @@ public class Tools {
         return NSString.path(withComponents: arguments)
     }
     
+    /// Will return the current device enum
+    public static func getCurrentDevice() ->UIUserInterfaceIdiom {
+        return UIDevice.current.userInterfaceIdiom
+    }
+    
+    /// Will return the current device (iPad, iPhone etc..)
+    public static func getCurrentDeviceParsed() -> String {
+        switch getCurrentDevice() {
+        case .carPlay: return "carPlay"
+        case .mac: return "Mac"
+        case .pad: return "iPad"
+        case .phone: return "iPhone"
+        case .tv: return "TV"
+        default:
+            return "device"
+        }
+    }
     
 }
 
