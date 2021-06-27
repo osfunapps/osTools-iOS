@@ -18,7 +18,7 @@ public class GenericQueue<T> {
     public var queue = [T]()
     private var isFlushing = false  // flushing indicator
     private var queueDispatchQueue: DispatchQueue!  // the associated dispatch queue
-    public var delegate: GenericQueueDelegate<T>? = nil // an optional delegate
+    public var genericQueueDidFlush: ((T) -> Void)? = nil
     
     public init(dispatchQueueName: String = "queue_dq") {
         queueDispatchQueue = DispatchQueue(label: dispatchQueueName, qos: .utility)
@@ -42,6 +42,7 @@ public class GenericQueue<T> {
         flushNextRequest()
     }
     
+    
     private func flushNextRequest() {
         queueDispatchQueue.async {
             guard let item = self.queue.popLast() else {
@@ -49,17 +50,10 @@ public class GenericQueue<T> {
                 return
             }
             // report flush
-            self.delegate?.GenericQueueDidFlush(item: item)
+            self.genericQueueDidFlush?(item)
             
             // run recursively again
             self.flushNextRequest()
         }
     }
 }
-
-/// Implement this delegate to get reports about any event related to the generic queue (when flush and more)
-open class GenericQueueDelegate<T>: NSObject {
-    open func GenericQueueDidFlush(item: T){}
-}
-
-
