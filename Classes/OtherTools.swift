@@ -7,18 +7,16 @@
 
 import Foundation
 
-/// custom error
-public struct AppError : Error {
-    
-    var description : String
-    
-    
-    public init(description: String) {
-        self.description = description
-    }
-    
 
-    var localizedDescription: String {
-        return NSLocalizedString(description, comment: "")
+public enum AppError: Error {
+    case customError(String)
+}
+
+extension AppError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .customError(let msg):
+            return msg
+        }
     }
 }
