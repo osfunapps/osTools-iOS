@@ -700,16 +700,7 @@ extension UITextField {
 
 /// Will check if the keyboard present
 extension UIApplication {
-    /// Checks if view hierarchy of application contains `UIRemoteKeyboardWindow` if it does, keyboard is presented
-    public var isKeyboardPresented: Bool {
-        if let keyboardWindowClass = NSClassFromString("UIRemoteKeyboardWindow"),
-            self.windows.contains(where: { $0.isKind(of: keyboardWindowClass) }) {
-            return true
-        } else {
-            return false
-        }
-    }
-    
+
     public static func openAppSetting() {
         if let url = URL(string:UIApplication.openSettingsURLString) {
             if UIApplication.shared.canOpenURL(url) {
