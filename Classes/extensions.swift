@@ -694,6 +694,11 @@ extension UITextField {
         applyToolbar.sizeToFit()
         inputAccessoryView = applyToolbar
     }
+    
+    /// Will move the caret to the end of the line
+    public func moveCaretToLineEnd() {
+        self.selectedTextRange = self.textRange(from: self.endOfDocument, to: self.endOfDocument)
+    }
 }
 
 
