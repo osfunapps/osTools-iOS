@@ -15,7 +15,7 @@ import Foundation
 public class GenericQueue<T> {
     
     // queue
-    public var queue = [T]()
+    public var queue: [T]? = nil
     private var isFlushing = false  // flushing indicator
     private var queueDispatchQueue: DispatchQueue!  // the associated dispatch queue
     public var genericQueueDidFlush: ((T) -> Void)? = nil
@@ -26,7 +26,10 @@ public class GenericQueue<T> {
     
     /// Will add another item to the queue. The queue will be flushed by default
     public func addToQueue(item: T, toFlush: Bool = true) {
-        queue.append(item)
+        if queue == nil {
+            queue = [T]()
+        }
+        queue!.append(item)
         if toFlush {
             flush()
         }
@@ -45,7 +48,7 @@ public class GenericQueue<T> {
     
     private func flushNextRequest() {
         queueDispatchQueue.async {
-            guard let item = self.queue.popLast() else {
+            guard let item = self.queue?.popLast() else {
                 self.isFlushing = false
                 return
             }
