@@ -727,6 +727,11 @@ extension String {
         guard let index = range(of: string, options: .backwards) else { return nil }
         return self.distance(from: self.startIndex, to: index.lowerBound)
     }
+    
+    public func firstIndexOf(string: String) -> Int? {
+        guard let index = range(of: string) else { return nil }
+        return self.distance(from: self.startIndex, to: index.lowerBound)
+    }
 }
 
 /// Will remove a prefix of a string
