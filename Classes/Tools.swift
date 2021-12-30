@@ -16,6 +16,13 @@ public class Tools {
         dest[destPos...(destPos + length - 1)] = src[srcPos...(srcPos + length - 1)]
     }
     
+    /// will return the app delegate instance. Call with val appDelegate: AppDelegate? = Tools.getAppDelegate()
+    public static func getAppDelegate<T>() -> T? {
+        if let myDelegate = UIApplication.shared.delegate as? T {
+            return myDelegate
+        }
+        return nil
+    }
 
     /// Will return the current time in seconds
     public static func getCurrentSeconds() ->  TimeInterval {
@@ -30,6 +37,13 @@ public class Tools {
     /// Will return the current time in Int format
     public static func getCurrentMillisInt()->Int {
         return Int(Date().timeIntervalSince1970 * 1000)
+    }
+    
+    /// Will return the current time in Float format
+    public static func currentTimeInMilliSeconds() -> CGFloat {
+        let currentDate = Date()
+        let since1970 = currentDate.timeIntervalSince1970
+        return CGFloat(since1970 * 1000000)
     }
     
     /// Will return the screen's width
@@ -72,14 +86,6 @@ public class Tools {
             print("invalid regex: \(error.localizedDescription)")
             return []
         }
-    }
-    
-    /// will check if a view controller present in the backstack
-    public static func isViewControllerInBackStack (
-        _ navigationController: UINavigationController?,
-        _ vcClass: AnyClass) -> Bool {
-        return (navigationController != nil &&
-            navigationController!.hasViewController(ofKind: vcClass))
     }
     
     /// Will run a function after a delay. The delayed function will run on the main thread

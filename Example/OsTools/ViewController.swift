@@ -15,11 +15,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        exampleView.fadeOut(withDuration: 5){
-            self.exampleView.fadeIn(withDuration: 10) {
-                print("done!")
-            }
-        }
     }
     
 }
