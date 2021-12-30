@@ -35,7 +35,7 @@ public class LifeCycleRegistrator {
     }
 }
 
-@objc public protocol LifeCycleDelegate: class {
+@objc public protocol LifeCycleDelegate: AnyObject {
     @objc func appDidEnteredBackground()
     @objc func appDidReturnedFromBackground()
 }
