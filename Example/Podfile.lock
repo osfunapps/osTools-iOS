@@ -1,5 +1,5 @@
 PODS:
-  - OsTools (0.3.4)
+  - OsTools (0.9.3)
 
 DEPENDENCIES:
   - OsTools (from `../`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  OsTools: 4187b74442c170fcb17901d9f0c2389e626e68e0
+  OsTools: c7346fecd620460d3c01071d94389f16c57786f7
 
 PODFILE CHECKSUM: a96c57aa96fda86571eb40f38f8deffd5d6991db
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.11.2
