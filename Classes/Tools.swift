@@ -198,6 +198,44 @@ public class Tools {
         }
     }
     
+    /// This is shitty and buggy. Use isPortraitOrientation() instead!
+    public static func getCurrentOrientation() -> UIDeviceOrientation {
+        return UIDevice.current.orientation
+    }
+    
+    /// The correct way to check orientation without hassling with all of the faceUp faceDown shits out there
+    public static func isPortraitOrientation() -> Bool {
+        let size = UIScreen.main.bounds.size
+        return size.width < size.height
+    }
+    
+    /// Will return true if dark mode is on
+    public static func isDarkMode(vc: UIViewController) -> Bool {
+        if #available(iOS 12.0, *) {
+            return vc.traitCollection.userInterfaceStyle == .dark
+        } else {
+            return false
+        }
+    }
+    
+    /// Will set the current theme of the app
+    @available(iOS 13.0, *)
+    public static func setInterfaceStyle(window: UIWindow, style: UIUserInterfaceStyle, _ completion: ((Bool) -> Void)? = nil) {
+        UIView.transition (with: window, duration: 0.3, options: .transitionCrossDissolve, animations: {
+            window.overrideUserInterfaceStyle = style
+        }, completion: completion)
+    }
+    
+    /// will open the developer apps in the App Strore
+    public static func showDeveloperApps(developerId: String = "id1234") {
+        let url = URL(string: "itms-apps://itunes.apple.com/developer/\(developerId)")!
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
+    }
+    
 }
 
 

@@ -11,6 +11,10 @@ import UIKit
 
 
 extension String {
+
+    /// Will return only digits plus decimal point
+    var digitsWithDecimal: Self { trimmingCharacters(in: CharacterSet(charactersIn: "0123456789.").inverted) }
+    
     
     /// Will capitalize the first letter of a string (not in place)
     public func capitalizeFirstLetter() -> String {
@@ -37,7 +41,6 @@ extension String {
         guard self.hasPrefix(prefix) else { return }
         self = String(self.dropFirst(prefix.count))
     }
-    
     
     /// Will imitate Java's substring(:)
     public func substring(_ from: Int, _ to: Int) -> String {
@@ -124,6 +127,12 @@ extension String {
         return self[i ..< i + 1]
     }
     
+}
+
+extension RangeReplaceableCollection where Self: StringProtocol {
+    
+    /// Will return only digits
+    var digits: Self { filter(\.isWholeNumber) }
 }
 
 extension Array where Element: Equatable {
