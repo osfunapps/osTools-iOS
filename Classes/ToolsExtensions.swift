@@ -13,7 +13,7 @@ import UIKit
 extension String {
 
     /// Will return only digits plus decimal point
-    var digitsWithDecimal: Self { trimmingCharacters(in: CharacterSet(charactersIn: "0123456789.").inverted) }
+    public var digitsWithDecimal: Self { trimmingCharacters(in: CharacterSet(charactersIn: "0123456789.").inverted) }
     
     
     /// Will capitalize the first letter of a string (not in place)
