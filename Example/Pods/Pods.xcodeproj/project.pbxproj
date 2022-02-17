@@ -28,6 +28,7 @@
 		F41E06C227BD454F000372EA /* LightDarkThemeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41E06BE27BD454F000372EA /* LightDarkThemeHandler.swift */; };
 		F41E06C327BD454F000372EA /* DeviceModelGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41E06BF27BD454F000372EA /* DeviceModelGetter.swift */; };
 		F41E06C527BD47F0000372EA /* ItemsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41E06C427BD47F0000372EA /* ItemsStore.swift */; };
+		F4A835E727BEB95D0079475C /* SharedPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A835E627BEB95D0079475C /* SharedPrefs.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		F41E06BE27BD454F000372EA /* LightDarkThemeHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LightDarkThemeHandler.swift; path = Classes/LightDarkThemeHandler.swift; sourceTree = "<group>"; };
 		F41E06BF27BD454F000372EA /* DeviceModelGetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceModelGetter.swift; path = Classes/DeviceModelGetter.swift; sourceTree = "<group>"; };
 		F41E06C427BD47F0000372EA /* ItemsStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ItemsStore.swift; path = Classes/ItemsStore.swift; sourceTree = "<group>"; };
+		F4A835E627BEB95D0079475C /* SharedPrefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SharedPrefs.swift; path = Classes/SharedPrefs.swift; sourceTree = "<group>"; };
 		F507B070677E31357E3EC2C059500545 /* Pods-OsTools_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-OsTools_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		FD1DBADC824135544A493E09090B9D0E /* GyroImpl.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GyroImpl.swift; path = Classes/GyroImpl.swift; sourceTree = "<group>"; };
 		FD7EA28ED7E6DD0EFF1E2EA45C79F287 /* Pods-OsTools_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OsTools_Example.release.xcconfig"; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 		28035D624660DBD6031137410943918B /* OsTools */ = {
 			isa = PBXGroup;
 			children = (
+				F4A835E627BEB95D0079475C /* SharedPrefs.swift */,
 				F41E06C427BD47F0000372EA /* ItemsStore.swift */,
 				F41E06BF27BD454F000372EA /* DeviceModelGetter.swift */,
 				F41E06BD27BD454F000372EA /* GenericListItem.swift */,
@@ -401,6 +404,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BE7D6DC9AF2AF46C3341B244A8AE3BB /* CompletableSemaphore.swift in Sources */,
+				F4A835E727BEB95D0079475C /* SharedPrefs.swift in Sources */,
 				F41E06C527BD47F0000372EA /* ItemsStore.swift in Sources */,
 				11CEF281ADEEF337E9BAB995250CFDDD /* FileHandler.swift in Sources */,
 				55ECCDF3A24540A35D1EE7A11B10AE2E /* GyroImpl.swift in Sources */,
