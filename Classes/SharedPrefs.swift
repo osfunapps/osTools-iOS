@@ -96,7 +96,7 @@ public class SharedPrefs {
         UserDefaults.standard.set(data, forKey: key)
     }
     
-    class func getObjList<T: Codable>(key: String) -> [T] {
+    public static func getObjList<T: Codable>(key: String) -> [T] {
         guard let data = UserDefaults.standard.data(forKey: key),
               let objList = try? JSONDecoder().decode([T].self, from: data)
         else { return []}
