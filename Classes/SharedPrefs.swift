@@ -77,6 +77,17 @@ public class SharedPrefs {
         return preferences.bool(forKey: key)
     }
     
+    /// will read a bool from the shared prefs by key.
+    ///the default value is optional
+    public static func getBool(_ key: String, defVal: Bool? = nil) -> Bool? {
+        let preferences = UserDefaults.standard
+        guard let objRepr = preferences.object(forKey: key),
+              let asBool = objRepr as? Bool else {
+            return defVal
+        }
+        return asBool
+    }
+    
     
     /// will save an object from the shared prefs by key
     @available(iOS 11.0, *)
