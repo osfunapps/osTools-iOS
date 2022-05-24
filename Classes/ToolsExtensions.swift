@@ -334,7 +334,7 @@ extension Data {
         }
         
         // last fail safe
-        if start > end {
+        if start > end || start < 0 || end < 0 {
             throw SliceError.outOfBoundsException
         }
         
