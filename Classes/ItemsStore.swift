@@ -45,4 +45,8 @@ public class ItemsStore<T> {
     public func clearAllItems(){
         items.removeAll()
     }
+    
+    public func removeItem(at: Int) {
+        items.remove(at: at)
+    }
 }
