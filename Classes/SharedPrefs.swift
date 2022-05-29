@@ -12,18 +12,18 @@ import Foundation
 public class SharedPrefs {
     
     /// will save an object into the shared prefs by key
-    public static func setValue(_ key: String, _ value: Any?){
+    public static func setValue(_ key: String, _ value: Any?) {
         if value == nil {
             clearValue(key: key)
         } else {
-            let preferences = UserDefaults.standard
-            preferences.set(value, forKey: key)
+            UserDefaults.standard.set(value, forKey: key)
         }
     }
     
     /// Will remove a value from the shared preferences
     public static func clearValue(key: String) {
         UserDefaults.standard.removeObject(forKey: key)
+        
     }
     
     
@@ -61,6 +61,11 @@ public class SharedPrefs {
         return UserDefaults.standard.stringArray(forKey: key)
     }
     
+    /// will read a dictionary from the shared prefs by key
+    public static func getDictionary<T>(_ key: String) -> [String: T]? {
+        return UserDefaults.standard.dictionary(forKey: key) as? [String: T]
+    }
+    
     
     /// will read a double from the shared prefs by key.
     /// the default value is 0.
@@ -77,17 +82,6 @@ public class SharedPrefs {
         return preferences.bool(forKey: key)
     }
     
-    /// will read a bool from the shared prefs by key.
-    ///the default value is optional
-    public static func getBool(_ key: String, defVal: Bool? = nil) -> Bool? {
-        let preferences = UserDefaults.standard
-        guard let objRepr = preferences.object(forKey: key),
-              let asBool = objRepr as? Bool else {
-            return defVal
-        }
-        return asBool
-    }
-    
     
     /// will save an object from the shared prefs by key
     @available(iOS 11.0, *)
@@ -96,6 +90,7 @@ public class SharedPrefs {
         do {
             let encodedData: Data = try NSKeyedArchiver.archivedData(withRootObject: obj, requiringSecureCoding: false)
             userDefaults.set(encodedData, forKey: key)
+            print("Done!")
         } catch(let e) {
             print(e)
         }
