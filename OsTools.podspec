@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'OsTools'
-  s.version          = '1.1.0'
+  s.version          = '1.1.2'
   s.summary          = 'a bunch of tools for iOS/OSX development'
 
 # This description is used to generate tags and improve search results.
@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/osfunapps/osTools-iOS.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '11.0'
 
 #  s.source_files  = 'Classes/*.{h,m,swift}'
     s.source_files = 'Classes/**/*'

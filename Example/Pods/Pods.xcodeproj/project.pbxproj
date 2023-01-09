@@ -68,13 +68,13 @@
 		7DDC6F78A311E20812EEA15C419B5207 /* Pods-OsTools_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-OsTools_Tests-umbrella.h"; sourceTree = "<group>"; };
 		8DCDB1E13B04F0E4982A973742F83865 /* CompletableSemaphore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CompletableSemaphore.swift; path = Classes/CompletableSemaphore.swift; sourceTree = "<group>"; };
 		907C15C9C70504AB4539CDA9803F7B8E /* Pods-OsTools_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-OsTools_Tests-dummy.m"; sourceTree = "<group>"; };
-		9632528485F62CCC4953BE08721B6C02 /* OsTools */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = OsTools; path = OsTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9646057CC46AE7FD34137F92433545F3 /* Pods-OsTools_Example */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-OsTools_Example"; path = Pods_OsTools_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9632528485F62CCC4953BE08721B6C02 /* OsTools.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OsTools.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9646057CC46AE7FD34137F92433545F3 /* Pods_OsTools_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OsTools_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9E8DEF9E633F2D7D9F1EAA66FC7F2227 /* Pods-OsTools_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-OsTools_Example-frameworks.sh"; sourceTree = "<group>"; };
 		A88687BFC150F954E47EB5A510328C1A /* Pods-OsTools_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-OsTools_Tests.modulemap"; sourceTree = "<group>"; };
 		AB4EC065B4BA8C817FC53C383ED4378B /* Pods-OsTools_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-OsTools_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		ACFE5CA05E395CD7AC52A1F993C8C5AD /* Pods-OsTools_Tests */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-OsTools_Tests"; path = Pods_OsTools_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ACFE5CA05E395CD7AC52A1F993C8C5AD /* Pods_OsTools_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OsTools_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE9C3031A38A920C9DF6596F2063B31F /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		AEC863B2BF022F8A864B2E28EB2939DF /* Pods-OsTools_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-OsTools_Tests-Info.plist"; sourceTree = "<group>"; };
 		C3CE046C3DD466CF7DA90918CD627A82 /* OsTools-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OsTools-prefix.pch"; sourceTree = "<group>"; };
@@ -225,9 +225,9 @@
 		CD67ED8563A71C077BCBD317794F9941 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9632528485F62CCC4953BE08721B6C02 /* OsTools */,
-				9646057CC46AE7FD34137F92433545F3 /* Pods-OsTools_Example */,
-				ACFE5CA05E395CD7AC52A1F993C8C5AD /* Pods-OsTools_Tests */,
+				9632528485F62CCC4953BE08721B6C02 /* OsTools.framework */,
+				9646057CC46AE7FD34137F92433545F3 /* Pods_OsTools_Example.framework */,
+				ACFE5CA05E395CD7AC52A1F993C8C5AD /* Pods_OsTools_Tests.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -305,7 +305,7 @@
 			);
 			name = "Pods-OsTools_Example";
 			productName = Pods_OsTools_Example;
-			productReference = 9646057CC46AE7FD34137F92433545F3 /* Pods-OsTools_Example */;
+			productReference = 9646057CC46AE7FD34137F92433545F3 /* Pods_OsTools_Example.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		8A7B7635162BABB3C4A07562E0CE13B1 /* OsTools */ = {
@@ -323,7 +323,7 @@
 			);
 			name = OsTools;
 			productName = OsTools;
-			productReference = 9632528485F62CCC4953BE08721B6C02 /* OsTools */;
+			productReference = 9632528485F62CCC4953BE08721B6C02 /* OsTools.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		A926ACA888DF914FF7982E0A2F2289AD /* Pods-OsTools_Tests */ = {
@@ -342,7 +342,7 @@
 			);
 			name = "Pods-OsTools_Tests";
 			productName = Pods_OsTools_Tests;
-			productReference = ACFE5CA05E395CD7AC52A1F993C8C5AD /* Pods-OsTools_Tests */;
+			productReference = ACFE5CA05E395CD7AC52A1F993C8C5AD /* Pods_OsTools_Tests.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -352,7 +352,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1240;
-				LastUpgradeCheck = 1240;
+				LastUpgradeCheck = 1420;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -470,7 +470,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Target Support Files/Pods-OsTools_Tests/Pods-OsTools_Tests-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-OsTools_Tests/Pods-OsTools_Tests.modulemap";
@@ -523,6 +523,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -538,7 +539,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -565,7 +566,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/OsTools/OsTools-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/OsTools/OsTools-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/OsTools/OsTools.modulemap";
 				PRODUCT_MODULE_NAME = OsTools;
@@ -597,7 +598,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/OsTools/OsTools-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/OsTools/OsTools-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/OsTools/OsTools.modulemap";
 				PRODUCT_MODULE_NAME = OsTools;
@@ -647,6 +648,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -665,7 +667,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -694,7 +696,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Target Support Files/Pods-OsTools_Example/Pods-OsTools_Example-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-OsTools_Example/Pods-OsTools_Example.modulemap";
@@ -727,7 +729,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Target Support Files/Pods-OsTools_Tests/Pods-OsTools_Tests-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-OsTools_Tests/Pods-OsTools_Tests.modulemap";
@@ -760,7 +762,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Target Support Files/Pods-OsTools_Example/Pods-OsTools_Example-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-OsTools_Example/Pods-OsTools_Example.modulemap";
