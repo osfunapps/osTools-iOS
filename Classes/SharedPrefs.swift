@@ -76,10 +76,14 @@ public class SharedPrefs {
     
     
     /// will read a bool from the shared prefs by key.
-    ///the default value is false.
-    public static func getBool(_ key: String) -> Bool {
+    ///the default value is changeable.
+    public static func getBool(_ key: String, defVal: Bool? = false) -> Bool? {
         let preferences = UserDefaults.standard
-        return preferences.bool(forKey: key)
+        if preferences.object(forKey: key) == nil {
+            return defVal
+        } else {
+            return preferences.bool(forKey: key)
+        }
     }
     
     
