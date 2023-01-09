@@ -236,6 +236,18 @@ public class Tools {
         }
     }
     
+    // will download an example video file to the gallery
+    public static func downloadVideoFileToGallery() {
+        let imageData = NSData(contentsOf: URL(string: "https://freetestdata.com/wp-content/uploads/2021/10/Free_Test_Data_1MB_MOV.mov")!)!
+        let asStr = "\(NSTemporaryDirectory())temp.mov"
+        
+        imageData.write(toFile: asStr, atomically: true)
+        
+        if UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(asStr) {
+            UISaveVideoAtPathToSavedPhotosAlbum(asStr, nil, nil, nil)
+        }
+    }
+    
 }
 
 
