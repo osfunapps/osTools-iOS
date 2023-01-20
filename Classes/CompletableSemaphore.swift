@@ -9,31 +9,32 @@
 import Foundation
 
 /**
- Use this class if you want a semaphore with a completable result
+ Use this class if you want a semaphore with a completable result.
+ Notice: the made instance have a "wait(for timeout) function. It means that this semaphore can also return nil response (if the the timeout ended without a signal)
  */
 public class CompletableSemaphore<T> {
     
     public var semaphore = DispatchSemaphore(value: 0)
     public var isCompleted = false
-    public var result: T!
+    public var result: T?
     
     public init() {}
     
-    public func getCompleted() -> T {
+    public func getCompleted() -> T? {
         return result
     }
     
-    public func complete(result: T) {
+    public func complete(result: T?) {
         self.result = result
         isCompleted = true
         semaphore.signal()
     }
     
     
-    
-    public func wait(_ timeoutSecs: Int = -1) -> T {
-        if(timeoutSecs != -1) {
-            _ = semaphore.wait(timeout: .now() + .seconds(timeoutSecs))
+    @discardableResult
+    public func wait(for timeout: DispatchTime? = nil) -> T? {
+        if let timeout = timeout {
+            _ = semaphore.wait(timeout: timeout)
         } else {
             semaphore.wait()
         }

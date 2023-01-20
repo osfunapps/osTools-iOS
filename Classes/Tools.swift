@@ -248,6 +248,10 @@ public class Tools {
         }
     }
     
+    // will block the current thread so use with caution
+    public static func delay(for time: DispatchTime) {
+        CompletableSemaphore<Bool>().wait(for: time)
+    }
 }
 
 
