@@ -20,6 +20,7 @@
 		9BE7D6DC9AF2AF46C3341B244A8AE3BB /* CompletableSemaphore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DCDB1E13B04F0E4982A973742F83865 /* CompletableSemaphore.swift */; };
 		9C20F044B6545A728BAD00DD9FC3ADB2 /* Pods-OsTools_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EDC5A66C1622BCFDAADA27931AC723 /* Pods-OsTools_Example-dummy.m */; };
 		A798B83CB245258D57983C0407CD953F /* Pods-OsTools_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F58864E782A4CD419172E53D8912217 /* Pods-OsTools_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B74FCFCF298189FF00BA6EBE /* PHAssetUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74FCFCE298189FF00BA6EBE /* PHAssetUtils.swift */; };
 		C6085A06328FAD5CF3EF2716411071CC /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C284A8D82760398B6DBDFFE5CF3D9A4 /* Tools.swift */; };
 		DA7536C4E8A919D7FD59F4BD5E747F1D /* OsTools-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CE91F968CA9435CF6B9FB0255F1F67 /* OsTools-dummy.m */; };
 		E43EE6F99286D6C82C0E6069C31FEA22 /* Pods-OsTools_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 907C15C9C70504AB4539CDA9803F7B8E /* Pods-OsTools_Tests-dummy.m */; };
@@ -77,6 +78,7 @@
 		ACFE5CA05E395CD7AC52A1F993C8C5AD /* Pods_OsTools_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OsTools_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE9C3031A38A920C9DF6596F2063B31F /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		AEC863B2BF022F8A864B2E28EB2939DF /* Pods-OsTools_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-OsTools_Tests-Info.plist"; sourceTree = "<group>"; };
+		B74FCFCE298189FF00BA6EBE /* PHAssetUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PHAssetUtils.swift; path = Classes/PHAssetUtils.swift; sourceTree = "<group>"; };
 		C3CE046C3DD466CF7DA90918CD627A82 /* OsTools-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OsTools-prefix.pch"; sourceTree = "<group>"; };
 		C6673BDDEE8416A72ECDD3C800F0A5F2 /* OsTools.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = OsTools.debug.xcconfig; sourceTree = "<group>"; };
 		D54CF7C8AC4F9903D6602D8FA1EA7C9E /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 		28035D624660DBD6031137410943918B /* OsTools */ = {
 			isa = PBXGroup;
 			children = (
+				B74FCFCE298189FF00BA6EBE /* PHAssetUtils.swift */,
 				F4A835E627BEB95D0079475C /* SharedPrefs.swift */,
 				F41E06C427BD47F0000372EA /* ItemsStore.swift */,
 				F41E06BF27BD454F000372EA /* DeviceModelGetter.swift */,
@@ -407,6 +410,7 @@
 				F4A835E727BEB95D0079475C /* SharedPrefs.swift in Sources */,
 				F41E06C527BD47F0000372EA /* ItemsStore.swift in Sources */,
 				11CEF281ADEEF337E9BAB995250CFDDD /* FileHandler.swift in Sources */,
+				B74FCFCF298189FF00BA6EBE /* PHAssetUtils.swift in Sources */,
 				55ECCDF3A24540A35D1EE7A11B10AE2E /* GyroImpl.swift in Sources */,
 				328BA52F53AAB06EF73CB7352F8234E2 /* LifeCycleRegistrator.swift in Sources */,
 				F41E06C127BD454F000372EA /* GenericListItem.swift in Sources */,

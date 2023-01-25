@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-
 extension String {
 
     /// Will return only digits plus decimal point
@@ -354,5 +353,3 @@ extension Data {
 public enum SliceError: Error {
     case outOfBoundsException
 }
-
-

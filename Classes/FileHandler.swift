@@ -7,9 +7,22 @@
 //
 
 import Foundation
+import MobileCoreServices
 
 public class FileHandler {
     
+    /// Will return the suitable mime type for the file type
+    public static func mimeTypeForPath(path: String) -> String {
+        let url = NSURL(fileURLWithPath: path)
+        let pathExtension = url.pathExtension
+        
+        if let uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, pathExtension! as NSString, nil)?.takeRetainedValue() {
+            if let mimetype = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassMIMEType)?.takeRetainedValue() {
+                return mimetype as String
+            }
+        }
+        return "application/octet-stream"
+    }
     
     /// Will return the file name from a path, with/without the file extension
     public static func getFileNameFromPath(_ url: URL, _ withExtension: Bool) -> String{
