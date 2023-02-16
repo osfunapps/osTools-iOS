@@ -11,6 +11,47 @@ import AVKit
 
 public class PHAssetUtils {
     
+    /// Will return the current photos access permission
+    public static func getCurrentPhotosPermissionStatus() -> PHAuthorizationStatus {
+        return PHPhotoLibrary.authorizationStatus()
+    }
+    
+    /// Will request the photos request permission
+    public static func requestPhotosVideosAccessPermission(_ completion: @escaping (PHAuthorizationStatus) -> Void) {
+        PHPhotoLibrary.requestAuthorization(completion)
+    }
+    
+    /// Will stop a running data request
+    public static func cancelDataRequest(by requestId: PHImageRequestID) {
+        PHAssetResourceManager.default().cancelDataRequest(requestId)
+    }
+    
+    /// Will stop a running image request
+    public static func cancelImageRequest(by requestId: PHImageRequestID) {
+        PHImageManager.default().cancelImageRequest(requestId)
+    }
+    
+    /// Will load a specific image with an optional quality reduction for faster load
+    public static func loadImage(from asset: PHAsset,
+                                 withTargetReduction factor: CGFloat = 1.0,
+                                 completion: @escaping (UIImage?) -> Void)
+    -> PHAssetResourceDataRequestID? {
+        // Request the photo data
+        let targetSize = CGSize(width: CGFloat(asset.pixelWidth) * factor,
+                                height: CGFloat(asset.pixelHeight) * factor)
+        let options = PHImageRequestOptions()
+        options.deliveryMode = .highQualityFormat
+        options.isNetworkAccessAllowed = true
+        let reqId = PHImageManager.default().requestImage(for: asset,
+                                                          targetSize: targetSize,
+                                                          contentMode: .aspectFit,
+                                                          options: options) {  image, hashh in
+            completion(image)
+        }
+        return reqId
+    }
+    
+    
     /// Will return a suitable asset from an asset's local identifier
     public static func asset(from localIdentifier: String) -> PHAsset? {
         let options = PHFetchOptions()
@@ -37,6 +78,83 @@ public class PHAssetUtils {
         }
         
         return biggestPH
+    }
+    
+    /// Will return all the videos which answer the predicate (title) and return them by creation date
+    public static func fetchAssets(fromAlbumIdentifier localIdentifier: String,
+                                   limitTo count: Int,
+                                   andFilterBy types: [PHAssetMediaType]) -> PHFetchResult<PHAsset>? {
+        
+        // take the album and filter
+        guard let album = PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: [localIdentifier], options: nil).firstObject else {return nil}
+        
+        let options = PHFetchOptions()
+        options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        options.fetchLimit = count
+        options.predicate = buildTypesPredicate(types: types)
+        let assets = PHAsset.fetchAssets(in: album, options: options)
+        return assets
+    }
+    
+    /// Will return all the videos which answer the predicate (title) and return them by creation date
+    public static func fetchAssets(andFilterBy types: [PHAssetMediaType]) -> [PHAsset] {
+        let options = PHFetchOptions()
+        options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        options.predicate = buildTypesPredicate(types: types)
+        var assets = [PHAsset]()
+        let result = PHAsset.fetchAssets(with: options)
+        result.enumerateObjects { (asset, _, _) in
+            assets.append(asset)
+        }
+        return assets
+    }
+    
+    /// Will return all the assets made before a certain asset
+    public static func fetchAssets(from albumLocalIdentifier: String,
+                                   olderThan asset: PHAsset,
+                                   assetCount: Int,
+                                   andFilterBy types: [PHAssetMediaType]) -> PHFetchResult<PHAsset>? {
+        guard let album = PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: [albumLocalIdentifier],
+                                                                  options: nil).firstObject else {return nil}
+        let options = PHFetchOptions()
+        options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        
+        if let creationDate = asset.creationDate {
+            let datePredicate = NSPredicate(format: "creationDate < %@",  creationDate as NSDate)
+            options.predicate = datePredicate
+        }
+        options.fetchLimit = assetCount
+        let assets = PHAsset.fetchAssets(in: album, options: options)
+        return assets
+    }
+    
+    /// Will return all the assets made after a certain asset
+    public static func fetchAssets(from albumLocalIdentifier: String,
+                                   takenAfter asset: PHAsset,
+                                   assetCount: Int) -> PHFetchResult<PHAsset>? {
+        guard let album = PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: [albumLocalIdentifier],
+                                                                  options: nil).firstObject else {return nil}
+        let options = PHFetchOptions()
+        options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+        options.predicate = NSPredicate(format: "creationDate > %@", asset.creationDate! as NSDate)
+        options.fetchLimit = assetCount
+
+        let assets = PHAsset.fetchAssets(in: album, options: options)
+        return assets
+    }
+    
+    
+    private static func buildTypesPredicate(types: [PHAssetMediaType]) -> NSCompoundPredicate {
+        var predicate = NSCompoundPredicate()
+        types.enumerated().forEach { (idx, value) in
+            let newCondition = NSCompoundPredicate(format: "mediaType = %d", value.rawValue)
+            if types.count > 1, idx > 0 {
+                predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [predicate, newCondition])
+            } else {
+                predicate = newCondition
+            }
+        }
+        return predicate
     }
     
     /// Will return the biggest photo on the device
