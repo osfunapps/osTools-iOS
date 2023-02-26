@@ -9,8 +9,25 @@
 import Foundation
 import UIKit
 
+extension NSAttributedString {
+   
+    /// Will find a range of string in an attributed string
+    public func rangeOf(string: String) -> Range<String.Index>? {
+        return self.string.range(of: string)
+    }
+}
 extension String {
 
+    /// Will return letters from a stirng
+    public var letters: String {
+        return String(unicodeScalars.filter(CharacterSet.letters.contains))
+    }
+    
+    /// Will convert to a base64 type of string
+    public func toBase64String() -> String {
+        return Data(self.utf8).base64EncodedString()
+    }
+    
     /// Will return only digits plus decimal point
     public var digitsWithDecimal: Self { trimmingCharacters(in: CharacterSet(charactersIn: "0123456789.").inverted) }
     
@@ -352,4 +369,26 @@ extension Data {
 
 public enum SliceError: Error {
     case outOfBoundsException
+}
+
+
+extension NSObject {
+    
+    /// Will return all of the static field in a class, which are marked with the @objc prefix
+    public static func getAllStaticFields() -> [String: String] {
+        
+        var outputDict = [String: String]()
+        var count: CUnsignedInt = 0
+        let methods = class_copyPropertyList(object_getClass(self), &count)!
+        for i in 0 ..< count {
+            let selector = property_getName(methods.advanced(by: Int(i)).pointee)
+            if let key = String(cString: selector, encoding: .utf8) {
+                let res = self.value(forKey: key)
+                if let value = res as? String {
+                    outputDict[key] = value
+                }
+            }
+        }
+        return outputDict
+    }
 }

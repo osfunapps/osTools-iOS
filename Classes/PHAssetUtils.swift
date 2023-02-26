@@ -197,21 +197,20 @@ public class PHAssetUtils {
         return avAsset
     }
     
+    
     /// Will return the data of the current asset, by chunks
     @discardableResult
     public static func exportAssetToDataByChunks(asset: PHAsset,
+                                                 options: PHAssetResourceRequestOptions,
                                                  dataReceivedHandler: @escaping (Data) -> Void,
                                                  completion: @escaping (Error?) -> Void) -> PHAssetResourceDataRequestID? {
-        let options = PHAssetResourceRequestOptions()
-        options.isNetworkAccessAllowed = true
-        let manager = PHAssetResourceManager.default()
         guard let resource = PHAssetResource.assetResources(for: asset).first else {
             return nil
         }
-        let reqId = manager.requestData(for: resource,
-                                        options: options,
-                                        dataReceivedHandler: dataReceivedHandler,
-                                        completionHandler: { error in
+        let reqId = PHAssetResourceManager.default().requestData(for: resource,
+                                                                 options: options,
+                                                                 dataReceivedHandler: dataReceivedHandler,
+                                                                 completionHandler: { error in
             completion(error)
         })
         return reqId
