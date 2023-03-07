@@ -21,6 +21,8 @@
 		9C20F044B6545A728BAD00DD9FC3ADB2 /* Pods-OsTools_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EDC5A66C1622BCFDAADA27931AC723 /* Pods-OsTools_Example-dummy.m */; };
 		A798B83CB245258D57983C0407CD953F /* Pods-OsTools_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0F58864E782A4CD419172E53D8912217 /* Pods-OsTools_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B74FCFCF298189FF00BA6EBE /* PHAssetUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74FCFCE298189FF00BA6EBE /* PHAssetUtils.swift */; };
+		B793220429B7E8DD003768BF /* PdfTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = B793220229B7E8DD003768BF /* PdfTools.swift */; };
+		B793220529B7E8DE003768BF /* FileCacheHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B793220329B7E8DD003768BF /* FileCacheHandler.swift */; };
 		B7A340E7299E751000C8F6AC /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A340E6299E751000C8F6AC /* DateUtils.swift */; };
 		C6085A06328FAD5CF3EF2716411071CC /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C284A8D82760398B6DBDFFE5CF3D9A4 /* Tools.swift */; };
 		DA7536C4E8A919D7FD59F4BD5E747F1D /* OsTools-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CE91F968CA9435CF6B9FB0255F1F67 /* OsTools-dummy.m */; };
@@ -80,6 +82,8 @@
 		AE9C3031A38A920C9DF6596F2063B31F /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		AEC863B2BF022F8A864B2E28EB2939DF /* Pods-OsTools_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-OsTools_Tests-Info.plist"; sourceTree = "<group>"; };
 		B74FCFCE298189FF00BA6EBE /* PHAssetUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PHAssetUtils.swift; path = Classes/PHAssetUtils.swift; sourceTree = "<group>"; };
+		B793220229B7E8DD003768BF /* PdfTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PdfTools.swift; path = Classes/PdfTools.swift; sourceTree = "<group>"; };
+		B793220329B7E8DD003768BF /* FileCacheHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileCacheHandler.swift; path = Classes/FileCacheHandler.swift; sourceTree = "<group>"; };
 		B7A340E6299E751000C8F6AC /* DateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateUtils.swift; path = Classes/DateUtils.swift; sourceTree = "<group>"; };
 		C3CE046C3DD466CF7DA90918CD627A82 /* OsTools-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OsTools-prefix.pch"; sourceTree = "<group>"; };
 		C6673BDDEE8416A72ECDD3C800F0A5F2 /* OsTools.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = OsTools.debug.xcconfig; sourceTree = "<group>"; };
@@ -155,6 +159,8 @@
 		28035D624660DBD6031137410943918B /* OsTools */ = {
 			isa = PBXGroup;
 			children = (
+				B793220329B7E8DD003768BF /* FileCacheHandler.swift */,
+				B793220229B7E8DD003768BF /* PdfTools.swift */,
 				B7A340E6299E751000C8F6AC /* DateUtils.swift */,
 				B74FCFCE298189FF00BA6EBE /* PHAssetUtils.swift */,
 				F4A835E627BEB95D0079475C /* SharedPrefs.swift */,
@@ -418,9 +424,11 @@
 				328BA52F53AAB06EF73CB7352F8234E2 /* LifeCycleRegistrator.swift in Sources */,
 				F41E06C127BD454F000372EA /* GenericListItem.swift in Sources */,
 				F41E06C227BD454F000372EA /* LightDarkThemeHandler.swift in Sources */,
+				B793220429B7E8DD003768BF /* PdfTools.swift in Sources */,
 				B7A340E7299E751000C8F6AC /* DateUtils.swift in Sources */,
 				DA7536C4E8A919D7FD59F4BD5E747F1D /* OsTools-dummy.m in Sources */,
 				130BC8BD1A7BF7D79C7CB942BE1E14EC /* OtherTools.swift in Sources */,
+				B793220529B7E8DE003768BF /* FileCacheHandler.swift in Sources */,
 				F41E06C027BD454F000372EA /* OrientationChangeDelegate.swift in Sources */,
 				C6085A06328FAD5CF3EF2716411071CC /* Tools.swift in Sources */,
 				F41E06C327BD454F000372EA /* DeviceModelGetter.swift in Sources */,
