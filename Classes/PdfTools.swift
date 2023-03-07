@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 import PDFKit
-import OsTools
 
 // a simple utility for working with pdf file
+@available(iOS 11.0, *)
 public class PdfTools {
     
     lazy var tempFilePath: URL = {
