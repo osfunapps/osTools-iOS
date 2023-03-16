@@ -372,6 +372,15 @@ public enum SliceError: Error {
 }
 
 
+extension Array where Element == UInt8 {
+    public var kilobytes: Double {
+        let bytes = Double(self.count)
+        return bytes / 1024.0
+    }
+}
+
+
+
 extension NSObject {
     
     /// Will return all of the static field in a class, which are marked with the @objc prefix

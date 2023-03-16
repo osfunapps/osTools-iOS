@@ -109,38 +109,136 @@ public class PHAssetUtils {
         return assets
     }
     
-    /// Will return all the assets made before a certain asset
-    public static func fetchAssets(from albumLocalIdentifier: String,
-                                   olderThan asset: PHAsset,
-                                   assetCount: Int,
-                                   andFilterBy types: [PHAssetMediaType]) -> PHFetchResult<PHAsset>? {
-        guard let album = PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: [albumLocalIdentifier],
-                                                                  options: nil).firstObject else {return nil}
-        let options = PHFetchOptions()
-        options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+    /**
+     Fetches a collection of assets from the user's Photos library that were taken before the specified asset.
+
+     - Parameters:
+       - asset: The asset that serves as an ending point for the fetch. Only assets captured before this asset will be returned.
+       - albumLocalIdentifier: The local identifier of the album to fetch assets from. If nil, fetches assets from all albums.
+       - assetCount: The maximum number of assets to fetch. If nil, fetches all assets.
+       - filterTypes: An optional array of media types to filter the fetched assets by.
+     - Returns: A `PHFetchResult` instance that represents the fetched assets, or nil if an error occurred.
+    */
+    public static func fetchAssetsTakenBefore(asset: PHAsset,
+                                              fromAlbumLocalIdentifier albumLocalIdentifier: String? = nil,
+                                              limitTo assetCount: Int? = nil,
+                                              andFilterBy filterTypes: [PHAssetMediaType]? = nil) -> PHFetchResult<PHAsset>? {
         
+        let options = buildStandardFetchOptions(sortByDate: true,
+                                                ascendingSort: false,
+                                                fetchCount: assetCount,
+                                                filterTypes: filterTypes)
         if let creationDate = asset.creationDate {
             let datePredicate = NSPredicate(format: "creationDate < %@",  creationDate as NSDate)
-            options.predicate = datePredicate
+            if let typesPredicate = options.predicate {
+                let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [typesPredicate, datePredicate])
+                options.predicate = predicate
+            } else {
+                options.predicate = datePredicate
+            }
         }
-        options.fetchLimit = assetCount
-        let assets = PHAsset.fetchAssets(in: album, options: options)
-        return assets
+        if let albumLocalIdentifier = albumLocalIdentifier {
+            guard let album = PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: [albumLocalIdentifier],
+                                                                      options: nil).firstObject else {return nil}
+            var assets = PHAsset.fetchAssets(in: album, options: options)
+            return assets
+        }
+        return PHAsset.fetchAssets(with: options)
     }
     
-    /// Will return all the assets made after a certain asset
-    public static func fetchAssets(from albumLocalIdentifier: String,
-                                   takenAfter asset: PHAsset,
-                                   assetCount: Int) -> PHFetchResult<PHAsset>? {
-        guard let album = PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: [albumLocalIdentifier],
-                                                                  options: nil).firstObject else {return nil}
-        let options = PHFetchOptions()
-        options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-        options.predicate = NSPredicate(format: "creationDate > %@", asset.creationDate! as NSDate)
-        options.fetchLimit = assetCount
+    
+    /**
+     Fetches a collection of assets from the user's Photos library that were taken after the specified asset.
 
-        let assets = PHAsset.fetchAssets(in: album, options: options)
-        return assets
+     - Parameters:
+       - asset: The asset that serves as a starting point for the fetch. Only assets captured after this asset will be returned.
+       - albumLocalIdentifier: The local identifier of the album to fetch assets from. If nil, fetches assets from all albums.
+       - assetCount: The maximum number of assets to fetch. If nil, fetches all assets.
+       - filterTypes: An optional array of media types to filter the fetched assets by.
+     - Returns: A `PHFetchResult` instance that represents the fetched assets, or nil if an error occurred.
+    */
+    public static func fetchAssetsTakenAfter(asset: PHAsset,
+                                             fromAlbumLocalIdentifier albumLocalIdentifier: String? = nil,
+                                             limitTo assetCount: Int? = nil,
+                                             andFilterBy filterTypes: [PHAssetMediaType]? = nil) -> PHFetchResult<PHAsset>? {
+        let options = buildStandardFetchOptions(sortByDate: true,
+                                                ascendingSort: true,
+                                                fetchCount: assetCount,
+                                                filterTypes: filterTypes)
+        if let creationDate = asset.creationDate {
+            let datePredicate = NSPredicate(format: "creationDate > %@",  creationDate as NSDate)
+            if let typesPredicate = options.predicate {
+                let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [typesPredicate, datePredicate])
+                options.predicate = predicate
+            } else {
+                options.predicate = datePredicate
+            }
+        }
+        if let albumLocalIdentifier = albumLocalIdentifier {
+            guard let album = PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: [albumLocalIdentifier],
+                                                                      options: nil).firstObject else {return nil}
+            return PHAsset.fetchAssets(in: album, options: options)
+        }
+        return PHAsset.fetchAssets(with: options)
+    }
+    
+    
+    /**
+     Fetches a collection of the most recent assets from the user's Photos library.
+
+     - Parameters:
+       - albumLocalIdentifier: The local identifier of the album to fetch assets from. If nil, fetches assets from all albums.
+       - assetCount: The maximum number of assets to fetch. If nil, fetches all assets.
+       - ascendingSort: A boolean flag that determines whether to sort the fetched assets by ascending or descending date order.
+       - filterTypes: An optional array of media types to filter the fetched assets by.
+     - Returns: A `PHFetchResult` instance that represents the fetched assets, or nil if an error occurred.
+    */
+    public static func fetchMostRecentAssets(fromAlbumLocalIdentifier albumLocalIdentifier: String? = nil,
+                                             limitTo assetCount: Int? = nil,
+                                             sortByAscending ascendingSort: Bool = false,
+                                             andFilterBy filterTypes: [PHAssetMediaType]? = nil) -> PHFetchResult<PHAsset>? {
+        let options = buildStandardFetchOptions(sortByDate: true,
+                                                ascendingSort: ascendingSort,
+                                                fetchCount: assetCount,
+                                                filterTypes: filterTypes)
+        if let albumLocalIdentifier = albumLocalIdentifier {
+            guard let album = PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: [albumLocalIdentifier],
+                                                                      options: nil).firstObject else {return nil}
+            return PHAsset.fetchAssets(in: album, options: options)
+        }
+        return PHAsset.fetchAssets(with: options)
+    }
+    
+    /**
+     Builds a `PHFetchOptions` instance with standard settings.
+
+     - Parameters:
+       - sortByDate: A Boolean value that indicates whether to sort the fetched assets by creation date.
+       - fetchCount: The maximum number of assets to fetch. If nil, fetches all assets.
+       - filterTypes: An optional array of media types to filter the fetched assets by.
+     - Returns: A `PHFetchOptions` instance with the specified settings.
+    */
+    private static func buildStandardFetchOptions(sortByDate: Bool,
+                                                  ascendingSort: Bool?,
+                                                  fetchCount: Int? = nil,
+                                                  filterTypes: [PHAssetMediaType]? = nil)
+    -> PHFetchOptions {
+        let options = PHFetchOptions()
+        if sortByDate {
+            var _ascendingSort = false
+            if let ascendingSort = ascendingSort {
+                _ascendingSort = ascendingSort
+            }
+            options.sortDescriptors = [NSSortDescriptor(key: "creationDate",
+                                                        ascending: _ascendingSort)]
+        }
+        if let filterTypes = filterTypes {
+            options.predicate = buildTypesPredicate(types: filterTypes)
+        }
+        if let fetchCount = fetchCount {
+            options.fetchLimit = fetchCount
+        }
+        return options
     }
     
     
@@ -156,6 +254,7 @@ public class PHAssetUtils {
         }
         return predicate
     }
+    
     
     /// Will return the biggest photo on the device
     public static func getBiggestPhoto() -> PHAsset {
@@ -198,6 +297,22 @@ public class PHAssetUtils {
     }
     
     
+    /**
+     * Retrieves a `PHAssetCollection` with the given name.
+     *
+     * - Parameters:
+     *   - albumName: The name of the asset collection to retrieve.
+     * - Returns: The first `PHAssetCollection` with the given name, or `nil` if no matching collection is found.
+     */
+    public static func getAlbum(named albumName: String) -> PHAssetCollection? {
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.predicate = NSPredicate(format: "title = %@", albumName)
+        let collections = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions)
+        return collections.firstObject
+    }
+    
+    
+    
     /// Will return the data of the current asset, by chunks
     @discardableResult
     public static func exportAssetToDataByChunks(asset: PHAsset,
@@ -217,12 +332,12 @@ public class PHAssetUtils {
     }
     
     /// Will stop a running chunks loading
-    static func stopLoadChunks(from requestId: PHAssetResourceDataRequestID) {
+    public static func stopLoadChunks(from requestId: PHAssetResourceDataRequestID) {
         PHAssetResourceManager.default().cancelDataRequest(requestId)
     }
     
     
-    static func requestAccessToPhotos(_ completion: @escaping (PHAuthorizationStatus) -> Void) {
+    public static func requestAccessToPhotos(_ completion: @escaping (PHAuthorizationStatus) -> Void) {
         let photos = PHPhotoLibrary.authorizationStatus()
         if photos == .notDetermined {
             PHPhotoLibrary.requestAuthorization(completion)
