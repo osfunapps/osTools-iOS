@@ -31,14 +31,21 @@ public class PHAssetUtils {
         PHImageManager.default().cancelImageRequest(requestId)
     }
     
-    /// Will load a specific image with an optional quality reduction for faster load
-    public static func loadImage(from asset: PHAsset,
-                                 withTargetReduction factor: CGFloat = 1.0,
+    /**
+     Loads the image data for the specified asset at the target size.
+
+     - Parameters:
+        - asset: The PHAsset object for the image to be loaded.
+        - targetSize: The desired size of the image to be loaded.
+        - completion: A closure to be called when the image loading completes, with the resulting UIImage object or nil if the loading failed.
+
+     - Returns: An identifier for the PHAssetResourceDataRequest operation, or nil if the loading failed.
+    */
+    public static func loadImage(for asset: PHAsset,
+                                 by targetSize: CGSize,
                                  completion: @escaping (UIImage?) -> Void)
     -> PHAssetResourceDataRequestID? {
         // Request the photo data
-        let targetSize = CGSize(width: CGFloat(asset.pixelWidth) * factor,
-                                height: CGFloat(asset.pixelHeight) * factor)
         let options = PHImageRequestOptions()
         options.deliveryMode = .highQualityFormat
         options.isNetworkAccessAllowed = true

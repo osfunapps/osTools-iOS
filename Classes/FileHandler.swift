@@ -180,7 +180,7 @@ public class FileHandler {
     }
     
     /** Returns the parent directory path of the given file URL */
-    static func getParentDirPath(fromFileUrl fileUrl: URL) -> URL? {
+    public static func getParentDirPath(fromFileUrl fileUrl: URL) -> URL? {
         let directoryURL = fileUrl.deletingLastPathComponent()
         guard directoryURL.path != fileUrl.path else {
             return nil // The fileURL is the root directory
@@ -257,22 +257,22 @@ public class FileHandler {
 }
 
 public extension URL {
-    var isDirectory: Bool {
+    public var isDirectory: Bool {
         return (try? resourceValues(forKeys: [.isDirectoryKey]))?.isDirectory == true
     }
-    var subDirectories: [URL] {
+    public var subDirectories: [URL] {
         guard isDirectory else { return [] }
         return (try? FileManager.default.contentsOfDirectory(at: self, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles]).filter{ $0.isDirectory }) ?? []
     }
     
-    func joinPath(path: String) -> URL {
+    public func joinPath(path: String) -> URL {
         var copy = self
         copy.appendPathComponent(path)
         return copy
     }
     
     /// Return the file size of a given file from URL
-    var fileSize: UInt64? {
+    public var fileSize: UInt64? {
         get {
             do {
                 let attributes = try FileManager.default.attributesOfItem(atPath: path)
