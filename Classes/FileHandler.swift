@@ -91,17 +91,18 @@ public class FileHandler {
         return fileList
     }
     
-    /// Will create a directory
-    @discardableResult
-    public static func createDirectory(_ dirPathURL: URL) -> Bool{
-        
-        do {
-            try FileManager.default.createDirectory(atPath: dirPathURL.path, withIntermediateDirectories: true, attributes: nil)
-            return true
-        } catch {
-            print(error)
-            return false
-        }
+    /**
+     Creates a new directory at the specified URL and optionally creates intermediate directories as needed.
+
+     - Parameters:
+        - dirPathURL: The URL of the directory to create.
+        - intermediateDirectories: Whether to create intermediate directories between the root directory and the specified directory. Defaults to true.
+    */
+    public static func createDirectory(atPath dirPathURL: URL,
+                                       andCreateDirectoriesBetween intermediateDirectories: Bool = true) throws {
+            try FileManager.default.createDirectory(atPath: dirPathURL.path,
+                                                    withIntermediateDirectories: intermediateDirectories,
+                                                    attributes: nil)
     }
     
     /// Will copy a file
@@ -124,15 +125,14 @@ public class FileHandler {
      */
     public static func buildPath(_ basePath: URL, _ nextPath: String) throws -> URL {
         var _basePath = basePath
-        var paths = nextPath.split(separator: "/")
-        paths = nextPath.split(separator: "\\")
-        if(paths.count == 0){
+        let sanitizedPaths = nextPath.replace("\\", "/")
+        let paths = sanitizedPaths.split(separator: "/")
+        if paths.count == 0 {
             throw MyError.runtimeError("what is this path? read the instructions of buildPath() function you dummy!")
         }
         
         paths.forEach{ it in
-            var newStr = it.replacingOccurrences(of: "\\", with: "", options: .literal, range: nil)
-            newStr = it.replacingOccurrences(of: "/", with: "", options: .literal, range: nil)
+            let newStr = it.replacingOccurrences(of: "/", with: "", options: .literal, range: nil)
             _basePath.appendPathComponent(String(newStr))
         }
         

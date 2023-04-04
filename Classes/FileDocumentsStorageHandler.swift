@@ -8,26 +8,26 @@
 
 import Foundation
 
-/** Responsible for writing and reading files from the user's documents directory */
+/**
+ A utility class for working with files in the document directory of the user domain mask.
+
+ The `FileDocumentsStorageHandler` class provides methods for creating, writing to, reading from, and checking the existence of files in the document directory of the user domain mask
+
+*/
 public class FileDocumentsStorageHandler {
     
     /**
-     Reads a file from the local storage at the specified URL and returns its contents as a `Data` object.
-     
-     - Parameters:
-     - fileName: The name of the file to be read (extension included).
-     - fileURL: The URL of the directory where the file is stored.
-     
-     - Returns: The contents of the file as a `Data` object, or `nil` if the file cannot be read.
+     Reads the contents of a file at the specified relative URL inside the document directory of the user domain mask.
+
+     - Parameter relativeURL: The relative URL of the file to read.
+
+     - Returns: The contents of the file as a `Data` object, or nil if the file could not be read.
      */
-    public static func readFileFromStorage(fromDirectoryURL directoryURL: URL,
-                                           byFullName fileName: String) -> Data? {
+    public static func readFile(byRelativeURL relativeURL: URL) -> Data? {
         do {
-            let docsPath = FileHandler.getDocumentsDir()
-            let directoryPath = try FileHandler.buildPath(docsPath, directoryURL.absoluteString)
-            let filePath = try FileHandler.buildPath(directoryPath, fileName)
-            if FileHandler.isFileExists(filePath, isDir: false) {
-                let data = try Data(contentsOf: filePath)
+            let fullFileURL = try relativeURLToFullURL(relativeURL)
+            if FileHandler.isFileExists(fullFileURL, isDir: false) {
+                let data = try Data(contentsOf: fullFileURL)
                 return data
             }
         } catch let error {
@@ -38,21 +38,16 @@ public class FileDocumentsStorageHandler {
     
     
     /**
-     Checks if a file with the specified name exists in the directory located at the given URL.
-     
-     - Parameters:
-     - dirURL: The URL of the directory to search for the file.
-     - fileName: The name of the file to search for in the directory (including extension).
-     
-     - Returns: `true` if the file exists in the directory, `false` otherwise.
+     Checks if a file exists at the specified relative URL inside the document directory of the user domain mask.
+
+     - Parameter relativeURL: The relative URL of the file to check.
+
+     - Returns: A Boolean value indicating whether the file exists.
      */
-    public static func isFileExistsInStorage(locatedInDirURL dirURL: URL,
-                                             fileFullName fileName: String) -> Bool {
+    public static func isFileExists(byRelativeURL relativeURL: URL) -> Bool {
         do {
-            let docsPath = FileHandler.getDocumentsDir()
-            let parentPath = try FileHandler.buildPath(docsPath, dirURL.absoluteString)
-            let filePath = try FileHandler.buildPath(parentPath, fileName)
-            return FileHandler.isFileExists(filePath, isDir: false)
+            let fullFileURL = try relativeURLToFullURL(relativeURL)
+            return FileHandler.isFileExists(fullFileURL, isDir: false)
         } catch let error {
             print(error)
         }
@@ -60,39 +55,60 @@ public class FileDocumentsStorageHandler {
     }
     
     /**
-     Writes data to a file in the local storage at the specified URL.
-     
+     Writes data to a file at the specified relative URL inside the document directory of the user domain mask.
+
      - Parameters:
-     - fileName: The name of the file to be written (including extension).
-     - dstPath: The local path of the directory where the file will be stored.
-     - data: The data to be written to the file.
-     
-     - Returns: An `Error` object if an error occurs while writing the file, or `nil` if the file is written successfully.
-     */
-    public static func writeFileToStorage(byFullName fileName: String,
-                                          toDstPath dstPath: URL,
+       - relativeURL: The relative URL of the file to write data to.
+       - data: The data to write to the file.
+
+     - Returns: An error object indicating whether the write operation was successful, or nil if the write operation was successful.
+    */
+    public static func writeFile(toRelativeURL relativeURL: URL,
                                           withData data: Data) -> Error? {
         do {
-            let docsPath = FileHandler.getDocumentsDir()
-            let parentDirURL = try FileHandler.buildPath(docsPath, dstPath.absoluteString)
-            let fileDstURL = try FileHandler.buildPath(parentDirURL, fileName)
-            
-            // create the destination directory and any intermediate directories as necessary.
-            try FileManager.default.createDirectory(at: parentDirURL,
-                                                    withIntermediateDirectories: true,
-                                                    attributes: nil)
+            let fullFileURL = try relativeURLToFullURL(relativeURL)
             
             // delete if previous exists
-            if FileHandler.isFileExists(fileDstURL) {
-                FileHandler.deleteFileOrDir(fileDstURL)
+            if FileHandler.isFileExists(fullFileURL) {
+                FileHandler.deleteFileOrDir(fullFileURL)
+            }
+            
+            if let fullParentURL = FileHandler.getParentDirPath(fromFileUrl: fullFileURL) {
+                // create the destination directory and any intermediate directories as necessary.
+                try FileHandler.createDirectory(atPath: fullParentURL, andCreateDirectoriesBetween: true)
             }
             
             // write
-            try data.write(to: fileDstURL)
+            try data.write(to: fullFileURL)
             return nil
         } catch let error {
             return error
         }
     }
     
+    /**
+     Creates a new directory at the specified relative URL inside the document directory of the user domain mask.
+
+     - Parameters:
+     - relativeURL: The relative URL of the directory to create (it can contain multiple subdirectories).
+
+     - Throws: An error if the directory could not be created.
+
+    */
+    public static func createDirectory(atRelativeURL relativeURL: URL) throws {
+        let fullDirURL = try relativeURLToFullURL(relativeURL)
+        try FileHandler.createDirectory(atPath: fullDirURL, andCreateDirectoriesBetween: true)
+    }
+        
+    /**
+     Converts a relative URL to a full URL inside the document directory of the user domain mask.
+     
+     - Parameter relativeURL: The relative URL of the file to convert.
+     
+     - Returns: A full URL inside the document directory of the user domain mask, or nil if the URL could not be converted.
+     */
+    public static func relativeURLToFullURL(_ relativeURL: URL) throws -> URL {
+        let docsPath = FileHandler.getDocumentsDir()
+        return try FileHandler.buildPath(docsPath, relativeURL.absoluteString)
+    }
 }
