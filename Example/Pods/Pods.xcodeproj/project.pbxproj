@@ -25,6 +25,7 @@
 		B793220429B7E8DD003768BF /* PdfTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = B793220229B7E8DD003768BF /* PdfTools.swift */; };
 		B793220529B7E8DE003768BF /* FileCacheHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B793220329B7E8DD003768BF /* FileCacheHandler.swift */; };
 		B7A340E7299E751000C8F6AC /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A340E6299E751000C8F6AC /* DateUtils.swift */; };
+		B7E6184C2A015567009E6A23 /* NotificationsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E6184B2A015567009E6A23 /* NotificationsHandler.swift */; };
 		C6085A06328FAD5CF3EF2716411071CC /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C284A8D82760398B6DBDFFE5CF3D9A4 /* Tools.swift */; };
 		DA7536C4E8A919D7FD59F4BD5E747F1D /* OsTools-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CE91F968CA9435CF6B9FB0255F1F67 /* OsTools-dummy.m */; };
 		E43EE6F99286D6C82C0E6069C31FEA22 /* Pods-OsTools_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 907C15C9C70504AB4539CDA9803F7B8E /* Pods-OsTools_Tests-dummy.m */; };
@@ -87,6 +88,7 @@
 		B793220229B7E8DD003768BF /* PdfTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PdfTools.swift; path = Classes/PdfTools.swift; sourceTree = "<group>"; };
 		B793220329B7E8DD003768BF /* FileCacheHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileCacheHandler.swift; path = Classes/FileCacheHandler.swift; sourceTree = "<group>"; };
 		B7A340E6299E751000C8F6AC /* DateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateUtils.swift; path = Classes/DateUtils.swift; sourceTree = "<group>"; };
+		B7E6184B2A015567009E6A23 /* NotificationsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationsHandler.swift; path = Classes/NotificationsHandler.swift; sourceTree = "<group>"; };
 		C3CE046C3DD466CF7DA90918CD627A82 /* OsTools-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "OsTools-prefix.pch"; sourceTree = "<group>"; };
 		C6673BDDEE8416A72ECDD3C800F0A5F2 /* OsTools.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = OsTools.debug.xcconfig; sourceTree = "<group>"; };
 		D54CF7C8AC4F9903D6602D8FA1EA7C9E /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 		28035D624660DBD6031137410943918B /* OsTools */ = {
 			isa = PBXGroup;
 			children = (
+				B7E6184B2A015567009E6A23 /* NotificationsHandler.swift */,
 				B75DDFB929CB4D4900D4D0F8 /* FileDocumentsStorageHandler.swift */,
 				B793220329B7E8DD003768BF /* FileCacheHandler.swift */,
 				B793220229B7E8DD003768BF /* PdfTools.swift */,
@@ -419,6 +422,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BE7D6DC9AF2AF46C3341B244A8AE3BB /* CompletableSemaphore.swift in Sources */,
+				B7E6184C2A015567009E6A23 /* NotificationsHandler.swift in Sources */,
 				F4A835E727BEB95D0079475C /* SharedPrefs.swift in Sources */,
 				F41E06C527BD47F0000372EA /* ItemsStore.swift in Sources */,
 				11CEF281ADEEF337E9BAB995250CFDDD /* FileHandler.swift in Sources */,

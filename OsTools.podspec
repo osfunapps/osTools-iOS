@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'OsTools'
-  s.version          = '1.3.0'
+  s.version          = '1.3.1'
   s.summary          = 'a bunch of tools for iOS/OSX development'
 
 # This description is used to generate tags and improve search results.
