@@ -18,28 +18,6 @@ extension NSAttributedString {
 }
 extension String {
 
-    /// Will replace the last occurrence of a char in a string
-    public func replaceLastOccurrenceOfString(_ searchString: String,
-                                              with replacementString: String,
-                                              caseInsensitive: Bool = true) -> String {
-        let options: String.CompareOptions
-        if caseInsensitive {
-            options = [.backwards, .caseInsensitive]
-        } else {
-            options = [.backwards]
-        }
-        
-        if let range = self.range(of: searchString,
-                                  options: options,
-                                  range: nil,
-                                  locale: nil) {
-            
-            return self.replacingCharacters(in: range, with: replacementString)
-        }
-        return self
-    }
-
-    
     /// Will return letters from a stirng
     public var letters: String {
         return String(unicodeScalars.filter(CharacterSet.letters.contains))
