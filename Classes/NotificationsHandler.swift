@@ -7,6 +7,7 @@
 
 import Foundation
 import UserNotifications
+import UIKit
 
 /// A utility class to manage and handle local and remote notifications.
 ///
@@ -18,7 +19,7 @@ import UserNotifications
 ///     NotificationsHandler.requestNotificationPermission { granted, error in
 ///         if granted {
 ///             // Schedule a local notification
-///             NotificationsHandler.scheduleLocalNotification(at: date, withTitle: "Title", andBody: "Body")
+///             NotificationsHandler.scheduleLocalNotification(at: date, withTitle: "Title", andBody: "Body", andIdentifier: "myIdentifier")
 ///         }
 ///     }
 ///
@@ -34,11 +35,12 @@ import UserNotifications
 ///
 ///         // register the delegate
 ///         UNUserNotificationCenter.current().delegate = self
-///         if launchOptions?[.localNotification] is UILocalNotification {
+///         if launchOptions?[.localNotification] is UILocalNotification,
+///         localNotification.identifier == "myIdentifier" {
 ///             // came from notification click!
 ///         }
 ///     }
-///     
+///
 ///     extension AppDelegate: UNUserNotificationCenterDelegate {
 ///
 ///         func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
@@ -96,6 +98,7 @@ public class NotificationsHandler {
                                                  withTitle title: String,
                                                  andBody body: String,
                                                  andImageURL imageURL: URL? = nil,
+                                                 andIdentifier identifier: String? = nil,
                                                  completion: ((Error?) -> Void)? = nil) {
         let center = UNUserNotificationCenter.current()
         
@@ -116,9 +119,28 @@ public class NotificationsHandler {
         
         let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
         let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-        
+        content.identifier = identifier
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-        
         center.add(request, withCompletionHandler: completion)
+    }
+}
+
+public extension UILocalNotification {
+    var identifier: String? {
+        get {
+            return userInfo?["identifier"] as? String
+        }
+    }
+}
+
+public extension UNMutableNotificationContent {
+    var identifier: String? {
+        set {
+            userInfo["identifier"] = newValue
+        }
+        
+        get {
+            return userInfo["identifier"] as? String
+        }
     }
 }
