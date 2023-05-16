@@ -23,7 +23,7 @@ public class Tools {
         }
         return nil
     }
-
+    
     /// Will return the current time in seconds
     public static func getCurrentSeconds() ->  TimeInterval {
         return Date().timeIntervalSince1970
@@ -99,9 +99,9 @@ public class Tools {
     
     /// Will run a function after a delay. The delayed function will run on a background dq
     public static func asyncTimedFunc(_ funcc: @escaping (() -> ()),
-                               seconds: Int = 0,
-                               millis: Int = 0,
-                               qos: DispatchQoS.QoSClass = .utility) -> DispatchWorkItem {
+                                      seconds: Int = 0,
+                                      millis: Int = 0,
+                                      qos: DispatchQoS.QoSClass = .utility) -> DispatchWorkItem {
         let task = DispatchWorkItem {
             funcc()
         }
@@ -112,16 +112,16 @@ public class Tools {
     
     /// Wll run a function after a delay on the main thread
     public static func asyncMainTimedTask(task: DispatchWorkItem,
-                                   seconds: Int = 0,
-                                   millis: Int = 0) {
+                                          seconds: Int = 0,
+                                          millis: Int = 0) {
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(seconds) + .milliseconds(millis), execute: task)
     }
     
     /// Wll run a function after a delay on a background thread
     public static func asyncTimedTask(task: DispatchWorkItem,
-                               seconds: Int = 0,
-                                millis: Int = 0,
-                                qos: DispatchQoS.QoSClass = .utility) {
+                                      seconds: Int = 0,
+                                      millis: Int = 0,
+                                      qos: DispatchQoS.QoSClass = .utility) {
         DispatchQueue.global(qos: qos).asyncAfter(deadline: DispatchTime.now() + .seconds(seconds) + .milliseconds(millis), execute: task)
     }
     
@@ -132,7 +132,7 @@ public class Tools {
         }
         return (possibleChar.range(of: "[\\p{Alnum},\\s#\\-.]+", options: .regularExpression, range: nil, locale: nil) != nil)
     }
-
+    
     /// Will return the top most view controller in the back stack
     public static func getLastViewController(_ viewController: UIViewController) -> UIViewController? {
         let controllersCount = viewController.navigationController?.viewControllers.count
@@ -159,7 +159,7 @@ public class Tools {
         var bArr = [UInt8](repeating: 0, count: 6)
         
         let status = SecRandomCopyBytes(kSecRandomDefault, bArr.count, &bArr)
-
+        
         if status != errSecSuccess { // Always test the status.
             return "b6:58:d9:db:c9:ee"  // random number
         }
@@ -251,6 +251,53 @@ public class Tools {
     // will block the current thread so use with caution
     public static func delay(for time: DispatchTime) {
         CompletableSemaphore<Bool>().wait(for: time)
+    }
+    
+    /**
+     Composes an email using the device's default mail application.
+     
+     - Parameters:
+     - emailRecipient: The main recipient of the email.
+     - recipients: The CC recipients of the email. This is optional.
+     - emailSubject: The subject of the email.
+     - emailContent: The body content of the email.
+     
+     This function does not send the email itself, but prepares an email in the user's default email client.
+     */
+    public static func sendEmail(emailRecipient: String, recipients: String? = nil, emailSubject: String, emailContent: String) {
+        var mailto = "mailto:\(emailRecipient)?subject=\(emailSubject)&body=\(emailContent)"
+        if let cc = recipients {
+            mailto += "&cc=\(cc)"
+        }
+        
+        guard let url = URL(string: mailto.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!) else {
+            return
+        }
+        
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
+    }
+    
+    /**
+     Determines the size of the notch (safe area inset at the top of the screen).
+     
+     This function is specific to devices with iOS 11.0 and above, as it utilizes the `safeAreaInsets` property introduced in iOS 11.0.
+     
+     - Returns: A `CGFloat` value representing the size of the notch if present, or `nil` for devices without a notch or running on iOS versions prior to 11.0.
+     
+     Note: This function will return a value greater than 20 for devices with a notch, given that the standard status bar height is 20 points. For devices without a notch, the function will return 20 (status bar height) or possibly 0, depending on whether the status bar is visible.
+     */
+    public static func getNotchSize() -> CGFloat? {
+        if #available(iOS 11.0, *) {
+            let appDelegate = UIApplication.shared.delegate
+            if let window = appDelegate?.window {
+                return window?.safeAreaInsets.top
+            }
+        }
+        return nil
     }
 }
 
