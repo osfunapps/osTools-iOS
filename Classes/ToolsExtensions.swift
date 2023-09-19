@@ -53,9 +53,9 @@ extension String {
     }
     
     /// Will remove a prefix of a string
-    public mutating func removePrefix(_ prefix: String) {
-        guard self.hasPrefix(prefix) else { return }
-        self = String(self.dropFirst(prefix.count))
+    public func removePrefix(_ prefix: String) -> String {
+        guard self.hasPrefix(prefix) else {return self}
+        return String(self.dropFirst(prefix.count))
     }
     
     /// Will imitate Java's substring(:)
