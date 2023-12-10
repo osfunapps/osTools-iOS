@@ -172,6 +172,13 @@ extension Array where Element == String {
     }
 }
 
+extension Array {
+    /// Returns the element at the specified index if it is within bounds, otherwise nil.
+    public func safeElement(at index: Int) -> Element? {
+        return indices.contains(index) ? self[index] : nil
+    }
+}
+
 extension Array where Element: Sequence {
     
     /// will join a bunch of arrays to one array
@@ -354,7 +361,6 @@ extension Data {
             throw SliceError.outOfBoundsException
         }
 
-        
         
         return Data(Array(self[start...end]))
     }
