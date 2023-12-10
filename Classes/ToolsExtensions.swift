@@ -195,41 +195,41 @@ extension Array where Element == UInt8  {
     }
     
     /// Will slice an array from a starting point to an end point
-    public func slice(_ from: Int, _ to: Int? = nil) -> [UInt8] {
-        var start = from
-        var end = count - 1
-        
-        if from < 0 {
-            if (to == nil) {
-                let toStart = count + from
-                if(toStart <= 0) {
-                    start = 0
-                } else {
-                    start = count + from
-                }
-                end = count - 1
-            }
-        } else {
-            if let _to = to {
-                start = from
-                if _to <= 0 {
-                    end = count - 1 + _to
-                } else {
-                    end = _to - 1
-                }
-            }
-        }
-        if start == count {
-            if(end == count - 1) {
-                return [UInt8]()
-            }
-            start = count - 1
-        }
-        if end < start {
-            end = count - 1
-        }
-        return Array(self[start...end])
-    }
+//    public func slice(_ from: Int, _ to: Int? = nil) -> [UInt8] {
+//        var start = from
+//        var end = count - 1
+//        
+//        if from < 0 {
+//            if (to == nil) {
+//                let toStart = count + from
+//                if(toStart <= 0) {
+//                    start = 0
+//                } else {
+//                    start = count + from
+//                }
+//                end = count - 1
+//            }
+//        } else {
+//            if let _to = to {
+//                start = from
+//                if _to <= 0 {
+//                    end = count - 1 + _to
+//                } else {
+//                    end = _to - 1
+//                }
+//            }
+//        }
+//        if start == count {
+//            if(end == count - 1) {
+//                return [UInt8]()
+//            }
+//            start = count - 1
+//        }
+//        if end < start {
+//            end = count - 1
+//        }
+//        return Array(self[start...end])
+//    }
     
     /// Will parse an array to an UTF string
     public func toUTFString() -> String? {
