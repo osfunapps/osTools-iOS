@@ -350,9 +350,11 @@ extension Data {
         }
         
         // last fail safe
-        if start > end || start < 0 || end < 0 {
+        if start < 0 || start >= count || end < 0 || end >= count || start > end {
             throw SliceError.outOfBoundsException
         }
+
+        
         
         return Data(Array(self[start...end]))
     }
