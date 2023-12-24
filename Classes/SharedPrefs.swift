@@ -86,6 +86,19 @@ public class SharedPrefs {
         }
     }
     
+    /// will read a bool from the shared prefs by key.
+    ///the default value is changeable.
+    public static func getFloat(_ key: String, defVal: CGFloat? = nil) -> CGFloat? {
+        let preferences = UserDefaults.standard
+        if preferences.object(forKey: key) == nil {
+            return defVal
+        } else {
+            return CGFloat(preferences.float(forKey: key))
+        }
+    }
+    
+ 
+    
     
     /// will save an object from the shared prefs by key
     @available(iOS 11.0, *)
