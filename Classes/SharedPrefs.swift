@@ -66,6 +66,10 @@ public class SharedPrefs {
         return UserDefaults.standard.dictionary(forKey: key) as? [String: T]
     }
     
+    /// will read an any dictionary from the shared prefs by key
+    public static func getAnyDictionary(_ key: String) -> [String: Any]? {
+        return UserDefaults.standard.dictionary(forKey: key)
+    }
     
     /// will read a double from the shared prefs by key.
     /// the default value is 0.
