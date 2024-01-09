@@ -62,13 +62,9 @@ public class SharedPrefs {
     }
     
     /// will read a dictionary from the shared prefs by key
+    /// Call with "let props: [String: String] = SharedPrefs.getDictionary(SP_PROP)"
     public static func getDictionary<T>(_ key: String) -> [String: T]? {
         return UserDefaults.standard.dictionary(forKey: key) as? [String: T]
-    }
-    
-    /// will read an any dictionary from the shared prefs by key
-    public static func getAnyDictionary(_ key: String) -> [String: Any]? {
-        return UserDefaults.standard.dictionary(forKey: key)
     }
     
     /// will read a double from the shared prefs by key.
