@@ -11,13 +11,14 @@ import Foundation
 public struct GenericListItem: Codable {
     public var name: String
     public var id: String?
-    
-    public init(name: String, id: String?) {
+    public var imgRes: String?
+    public init(name: String, id: String?, imgRes: String? = nil) {
         self.name = name
         self.id = id
+        self.imgRes = imgRes
     }
     
     public func copy() -> GenericListItem {
-        return GenericListItem(name: name, id: id)
+        return GenericListItem(name: name, id: id, imgRes: imgRes)
     }
 }
