@@ -107,14 +107,19 @@ public class Tools {
     }
 
     /// Will check if the WiFi is currently connected. Notice: result will be on the main thread
+    /// NOTICE: ios <12.0 devices will always return true
     public static func isWifiConnected(_ completion: @escaping (Bool) -> Void) {
-        let wifiMonitor = NWPathMonitor(requiredInterfaceType: .wifi)
-        wifiMonitor.start(queue: DispatchQueue.main)
-        // check if wifi connected
-        wifiMonitor.pathUpdateHandler = { path in
-            wifiMonitor.cancel()
-            let isWifi = path.status == .satisfied && path.usesInterfaceType(.wifi)
-            completion(isWifi)
+        if #available(iOS 12.0, *) {
+            let wifiMonitor = NWPathMonitor(requiredInterfaceType: .wifi)
+            wifiMonitor.start(queue: DispatchQueue.main)
+            // check if wifi connected
+            wifiMonitor.pathUpdateHandler = { path in
+                wifiMonitor.cancel()
+                let isWifi = path.status == .satisfied && path.usesInterfaceType(.wifi)
+                completion(isWifi)
+            }
+        } else {
+            completion(true)
         }
     }
     
