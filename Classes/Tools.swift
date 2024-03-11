@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Network
 
 public class Tools {
     
@@ -72,6 +73,59 @@ public class Tools {
         let legal = matches(for: "^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$", in: userIp)
         return !legal.isEmpty
     }
+    
+    public static func getIPAddress() -> String? {
+        var address: String?
+        var ifaddr: UnsafeMutablePointer<ifaddrs>?
+
+        if getifaddrs(&ifaddr) == 0 {
+            var ptr = ifaddr
+            while ptr != nil {
+                let flags = Int32(ptr!.pointee.ifa_flags)
+                var addr = ptr!.pointee.ifa_addr.pointee
+
+                if (flags & (IFF_UP|IFF_RUNNING)) != 0 {
+                    if addr.sa_family == UInt8(AF_INET) || addr.sa_family == UInt8(AF_INET6) {
+                        // Convert interface address to a human readable string:
+                        var hostname = [CChar](repeating: 0, count: Int(NI_MAXHOST))
+                        if (getnameinfo(&addr, socklen_t(addr.sa_len), &hostname, socklen_t(hostname.count), nil, socklen_t(0), NI_NUMERICHOST) == 0) {
+                            let addressString = String(validatingUTF8: hostname)
+                            // Filter out the loopback address
+                            if addr.sa_family == UInt8(AF_INET), let addressStr = addressString, addressStr != "127.0.0.1" {
+                                address = addressStr
+                                break
+                            }
+                        }
+                    }
+                }
+                ptr = ptr!.pointee.ifa_next
+            }
+            freeifaddrs(ifaddr)
+        }
+
+        return address
+    }
+
+    /// Will check if the WiFi is currently connected. Notice: result will be on the main thread
+    public static func isWifiConnected(_ completion: @escaping (Bool) -> Void) {
+        let wifiMonitor = NWPathMonitor(requiredInterfaceType: .wifi)
+        wifiMonitor.start(queue: DispatchQueue.main)
+        // check if wifi connected
+        wifiMonitor.pathUpdateHandler = { path in
+            wifiMonitor.cancel()
+            let isWifi = path.status == .satisfied && path.usesInterfaceType(.wifi)
+            completion(isWifi)
+        }
+    }
+    
+    public static func calculateNetworkPortion(ipAddress: String?) -> String? {
+        guard let ipAddress = ipAddress, let lastIndex = ipAddress.lastIndex(of: ".") else {
+            return nil
+        }
+        return String(ipAddress[..<lastIndex])
+    }
+
+
     
     /// Will return all of the matches expression of the regular expression in a given text
     public static func matches(for regex: String, in text: String) -> [String] {
