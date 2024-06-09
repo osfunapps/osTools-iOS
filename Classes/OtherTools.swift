@@ -10,6 +10,7 @@ import Foundation
 
 public enum AppError: Error {
     case customError(String)
+    case missingResources
 }
 
 extension AppError: LocalizedError {
@@ -17,6 +18,8 @@ extension AppError: LocalizedError {
         switch self {
         case .customError(let msg):
             return msg
+        case .missingResources:
+            return "Error: Missing resources"
         }
     }
 }
