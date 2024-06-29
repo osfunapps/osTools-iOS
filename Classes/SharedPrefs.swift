@@ -148,4 +148,31 @@ public class SharedPrefs {
     public static func clearObj (_ key: String) {
         setValue(key, nil)
     }
+    
+    /// will save an object from the shared prefs by key
+    public static func setObjNew<T: Encodable>(key: String, obj: T) -> Error? {
+        let userDefaults = UserDefaults.standard
+        let encoder = JSONEncoder()
+        
+        do {
+            let data = try encoder.encode(obj)
+            UserDefaults.standard.set(data, forKey: key)
+            return nil
+        } catch let error {
+            print("Unable to Encode UserSettings (\(error))")
+            return error
+        }
+    }
+    
+    /// will save an object from the shared prefs by key
+    public static func loadObjNew<T: Decodable>(key: String) -> T? {
+        guard let data = UserDefaults.standard.data(forKey: key) else {return nil}
+        let decoder = JSONDecoder()
+        do {
+            return try decoder.decode(T.self, from: data)
+        } catch let error{
+            print("Unable to Decode UserSettings (\(error))")
+            return nil
+        }
+    }
 }

@@ -25,8 +25,11 @@ public class CompletableSemaphore<T> {
     }
     
     public func complete(result: T?) {
-        self.result = result
+        if isCompleted {
+            return
+        }
         isCompleted = true
+        self.result = result
         semaphore.signal()
     }
     
