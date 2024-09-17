@@ -184,6 +184,16 @@ public class Tools {
         DispatchQueue.global(qos: qos).asyncAfter(deadline: DispatchTime.now() + .seconds(seconds) + .milliseconds(millis), execute: task)
     }
     
+    
+    /// Will simply open a link in the user's browser
+    public static func openLink(_ url: String) {
+        guard let url = URL(string: url) else {
+            print("Warning: URL isn't valid!")
+            return
+        }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+    
     /// Will return true if the char is of a language
     public static func isLanguageChar(possibleChar: String) -> Bool {
         if(possibleChar.count > 1){
