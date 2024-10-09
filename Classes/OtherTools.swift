@@ -7,8 +7,8 @@
 
 import Foundation
 
-
-public enum AppError: Error {
+// Adding AppError enum with Equatable conformance
+public enum AppError: Error, Equatable {
     case customError(String)
     case missingResources
 }
@@ -21,5 +21,16 @@ extension AppError: LocalizedError {
         case .missingResources:
             return "Error: Missing resources"
         }
+    }
+}
+
+public func == (lhs: AppError, rhs: AppError) -> Bool {
+    switch (lhs, rhs) {
+    case (.missingResources, .missingResources):
+        return true
+    case (.customError(let lhsMessage), .customError(let rhsMessage)):
+        return lhsMessage == rhsMessage
+    default:
+        return false
     }
 }
