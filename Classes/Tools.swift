@@ -111,17 +111,24 @@ public class Tools {
     public static func isWifiConnected(_ completion: @escaping (Bool) -> Void) {
         if #available(iOS 12.0, *) {
             let wifiMonitor = NWPathMonitor(requiredInterfaceType: .wifi)
-            wifiMonitor.start(queue: DispatchQueue.main)
-            // check if wifi connected
+            
+            // Set up the path update handler
             wifiMonitor.pathUpdateHandler = { path in
-                wifiMonitor.cancel()
                 let isWifi = path.status == .satisfied && path.usesInterfaceType(.wifi)
+                
+                // Complete and stop monitoring
                 completion(isWifi)
+                wifiMonitor.cancel()
             }
+            
+            // Start the monitor on the main queue
+            wifiMonitor.start(queue: DispatchQueue.main)
         } else {
+            // Assume WiFi is connected for iOS <12.0
             completion(true)
         }
     }
+
     
     public static func calculateNetworkPortion(ipAddress: String?) -> String? {
         guard let ipAddress = ipAddress, let lastIndex = ipAddress.lastIndex(of: ".") else {
