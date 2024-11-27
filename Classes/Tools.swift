@@ -131,7 +131,7 @@ public class Tools {
     
     /// Will return true for iPhone 3rd generation SE, iPhone mini etc
     public static func isiPhoneMini() -> Bool {
-        return Tools.getWindowWidth() < 400.0
+        return Tools.getWindowWidth() < 380.0
     }
 
     
