@@ -128,6 +128,11 @@ public class Tools {
             completion(true)
         }
     }
+    
+    /// Will return true for iPhone 3rd generation SE, iPhone mini etc
+    public static func isiPhoneMini() -> Bool {
+        return Tools.getWindowWidth() < 400.0
+    }
 
     
     public static func calculateNetworkPortion(ipAddress: String?) -> String? {
