@@ -112,13 +112,15 @@ public class Tools {
         if #available(iOS 12.0, *) {
             let wifiMonitor = NWPathMonitor(requiredInterfaceType: .wifi)
             
-            // Set up the path update handler
-            wifiMonitor.pathUpdateHandler = { path in
+            // Use a weak reference to break the retain cycle
+            wifiMonitor.pathUpdateHandler = { [weak wifiMonitor] path in
                 let isWifi = path.status == .satisfied && path.usesInterfaceType(.wifi)
                 
                 // Complete and stop monitoring
                 completion(isWifi)
-                wifiMonitor.cancel()
+                
+                // Safely cancel the monitor
+                wifiMonitor?.cancel()
             }
             
             // Start the monitor on the main queue
