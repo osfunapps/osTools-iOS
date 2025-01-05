@@ -29,7 +29,7 @@ extension AppError: LocalizedError {
 
 public func == (lhs: AppError, rhs: AppError) -> Bool {
     switch (lhs, rhs) {
-    case (.missingResources, .missingResources):
+    case (.missingResources, .missingResources), (.timeoutError, .timeoutError):
         return true
     case (.customError(let lhsMessage), .customError(let rhsMessage)):
         return lhsMessage == rhsMessage
