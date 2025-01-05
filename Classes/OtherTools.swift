@@ -11,6 +11,7 @@ import Foundation
 public enum AppError: Error, Equatable {
     case customError(String)
     case missingResources
+    case timeoutError
 }
 
 extension AppError: LocalizedError {
@@ -20,6 +21,8 @@ extension AppError: LocalizedError {
             return msg
         case .missingResources:
             return "Error: Missing resources"
+        case .timeoutError:
+            return "Error: Timeout reached"
         }
     }
 }
