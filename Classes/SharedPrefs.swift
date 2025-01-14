@@ -61,6 +61,11 @@ public class SharedPrefs {
         return UserDefaults.standard.stringArray(forKey: key)
     }
     
+    /// will read an array from the shared prefs by key.
+    public static func getArray(_ key: String) -> [Any]? {
+        return UserDefaults.standard.array(forKey: key)
+    }
+    
     /// will read a dictionary from the shared prefs by key
     /// Call with "let props: [String: String] = SharedPrefs.getDictionary(SP_PROP)"
     public static func getDictionary<T>(_ key: String) -> [String: T]? {
