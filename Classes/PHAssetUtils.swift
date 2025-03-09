@@ -12,11 +12,13 @@ import AVKit
 public class PHAssetUtils {
     
     /// Will return the current photos access permission
+    @MainActor
     public static func getCurrentPhotosPermissionStatus() -> PHAuthorizationStatus {
         return PHPhotoLibrary.authorizationStatus()
     }
     
     /// Will request the photos request permission
+    @MainActor
     public static func requestPhotosVideosAccessPermission(_ completion: @escaping (PHAuthorizationStatus) -> Void) {
         PHPhotoLibrary.requestAuthorization(completion)
     }
@@ -315,30 +317,32 @@ public class PHAssetUtils {
      
      - Warning: This function will request permission to access the user's photo library if permission has not already been granted.
      */
-    public static func saveVideoToAlbum(videoURL: URL,
-                                        completion: @escaping (Bool) -> Void) {
-        PHPhotoLibrary.requestAuthorization { status in
-            guard status == .authorized else {
-                completion(false)
-                return
-            }
-            
-            PHPhotoLibrary.shared().performChanges({
-                guard let request = PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: videoURL) else {
-                    completion(false)
+    public static func saveVideoToAlbum(videoURL: URL) async -> Bool {
+        
+        return await withCheckedContinuation {continuation in
+            PHPhotoLibrary.requestAuthorization { status in
+                guard status == .authorized else {
+                    continuation.resume(returning: false)
                     return
                 }
-                request.creationDate = Date()
-            }) { success, error in
-                if success {
-                    print("Video saved to album")
-                } else if let error = error {
-                    print("Error saving video to album: \(error.localizedDescription)")
-                } else {
-                    print("Unknown error saving video to album")
-                }
                 
-                completion(success)
+                PHPhotoLibrary.shared().performChanges({
+                    guard let request = PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: videoURL) else {
+                        continuation.resume(returning: false)
+                        return
+                    }
+                    request.creationDate = Date()
+                }) { success, error in
+                    if success {
+                        print("Video saved to album")
+                    } else if let error = error {
+                        print("Error saving video to album: \(error.localizedDescription)")
+                    } else {
+                        print("Unknown error saving video to album")
+                    }
+                    
+                    continuation.resume(returning: success)
+                }
             }
         }
     }

@@ -108,30 +108,22 @@ public class Tools {
 
     /// Will check if the WiFi is currently connected. Notice: result will be on the main thread
     /// NOTICE: ios <12.0 devices will always return true
-    public static func isWifiConnected(_ completion: @escaping (Bool) -> Void) {
-        if #available(iOS 12.0, *) {
+    public static func isWifiConnected() async -> Bool {
+        await withCheckedContinuation { continuation in
             let wifiMonitor = NWPathMonitor(requiredInterfaceType: .wifi)
             
-            // Use a weak reference to break the retain cycle
             wifiMonitor.pathUpdateHandler = { [weak wifiMonitor] path in
                 let isWifi = path.status == .satisfied && path.usesInterfaceType(.wifi)
-                
-                // Complete and stop monitoring
-                completion(isWifi)
-                
-                // Safely cancel the monitor
+                continuation.resume(returning: isWifi)
                 wifiMonitor?.cancel()
             }
             
-            // Start the monitor on the main queue
+            // Start the monitor on the main queue (or a suitable background queue)
             wifiMonitor.start(queue: DispatchQueue.main)
-        } else {
-            // Assume WiFi is connected for iOS <12.0
-            completion(true)
         }
     }
-    
-    /// Will return true for iPhone 3rd generation SE, iPhone mini etc
+
+/// Will return true for iPhone 3rd generation SE, iPhone mini etc
     public static func isiPhoneMini() -> Bool {
         return Tools.getWindowWidth() < 380.0
     }
@@ -200,6 +192,7 @@ public class Tools {
     
     
     /// Will simply open a link in the user's browser
+    @MainActor
     public static func openLink(_ url: String) {
         guard let url = URL(string: url) else {
             print("Warning: URL isn't valid!")

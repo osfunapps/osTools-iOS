@@ -102,22 +102,6 @@ public class SharedPrefs {
         }
     }
     
- 
-    
-    
-    /// will save an object from the shared prefs by key
-    @available(iOS 11.0, *)
-    public static func setObj(key: String, obj: Any) {
-        let userDefaults = UserDefaults.standard
-        do {
-            let encodedData: Data = try NSKeyedArchiver.archivedData(withRootObject: obj, requiringSecureCoding: false)
-            userDefaults.set(encodedData, forKey: key)
-            print("Done!")
-        } catch(let e) {
-            print(e)
-        }
-    }
-    
     /// will save a list of  objects
     public class func setObjList<T: Codable>(key: String, objs: [T]) {
         guard let data = try? JSONEncoder().encode(objs) else { return }
@@ -131,32 +115,13 @@ public class SharedPrefs {
         return objList
     }
 
-    
-    /// will read an object from the shared prefs by key
-    public static func getObj <T> (_ key: String, defaultVal: T? = nil) -> T? {
-        
-        // retrieving a value for a key
-        do {
-            if let data = UserDefaults.standard.data(forKey: key),
-               let unarchivedObj = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? T {
-                return unarchivedObj
-            } else {
-                print("There is an issue")
-            }
-        } catch {
-            print(error)
-        }
-        return nil
-    }
-    
     /// will clear an object from the shared prefs by key
     public static func clearObj (_ key: String) {
         setValue(key, nil)
     }
     
     /// will save an object from the shared prefs by key
-    public static func setObjNew<T: Encodable>(key: String, obj: T) -> Error? {
-        let userDefaults = UserDefaults.standard
+    public static func setObj<T: Encodable>(key: String, obj: T) -> Error? {
         let encoder = JSONEncoder()
         
         do {

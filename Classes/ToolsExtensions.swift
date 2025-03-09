@@ -306,16 +306,13 @@ extension CountableClosedRange where Bound == Int {
 }
 
 
+public extension UIApplication {
 
-/// Will check if the keyboard present
-extension UIApplication {
-
-    public static func openAppSetting() {
-        if let url = URL(string:UIApplication.openSettingsURLString) {
-            if UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
-        }
+    @MainActor
+    static func openAppSettings() {
+        guard let url = URL(string:UIApplication.openSettingsURLString),
+              UIApplication.shared.canOpenURL(url) else {return}
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 }
 

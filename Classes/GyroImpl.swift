@@ -9,44 +9,41 @@
 import Foundation
 import CoreMotion
 
-/// A simple class to listen to any Gyro events
-public class GyroImpl {
-    
-    // singletone
-    public static let shared = GyroImpl()
+public final class GyroManager {
+    public static let shared = GyroManager()
     private init() {}
-    
-    // instances
+
     private let motionManager = CMMotionManager()
-    private var timer: Timer!
-    public var delegate: GyroEventDelegate?
+    private var timer: Timer?
     
-    /// Will start listening to Gyro events
-    public func startListeningToEvents(checkEvery: TimeInterval, delegate: GyroEventDelegate) {
-        self.delegate = delegate
+    /// The closure provided by the caller that will be invoked on each update.
+    public var gyroUpdateHandler: ((CMGyroData) -> Void)?
+
+    /// Starts listening for gyro events. The provided closure is called every `checkInterval` seconds if new data is available.
+    ///
+    /// - Parameters:
+    ///   - checkInterval: The time interval between gyro data checks.
+    ///   - gyroUpdateHandler: The closure to call with new gyro data.
+    public func startListening(checkInterval: TimeInterval,
+                               gyroUpdateHandler: @escaping (CMGyroData) -> Void) {
+        // Save the handler so that it persists for the lifetime of our updates.
+        self.gyroUpdateHandler = gyroUpdateHandler
         motionManager.startGyroUpdates()
-        timer = Timer.scheduledTimer(timeInterval: checkEvery,
-                                     target: self,
-                                     selector: #selector(gyroDidUpdate),
-                                     userInfo: nil,
-                                     repeats: true)
-    }
-    
-    /// Will be called with each update to the gyroscope
-    @objc private func gyroDidUpdate() {
-        if let gyroData = motionManager.gyroData {
-            delegate?.gyroDidChanged(data: gyroData)
+        
+        // Use a block-based Timer to avoid an extra selector. The block will capture self weakly.
+        timer = Timer.scheduledTimer(withTimeInterval: checkInterval, repeats: true) { [weak self] _ in
+            guard let self = self,
+                  let gyroData = self.motionManager.gyroData else { return }
+            // Directly call the caller's handler with the data.
+            self.gyroUpdateHandler?(gyroData)
         }
     }
-    
-    /// Will stop listening to Gyro events
-    public func stopListeningToEvents() {
+
+    /// Stops listening for gyro events.
+    public func stopListening() {
         timer?.invalidate()
+        timer = nil
         motionManager.stopGyroUpdates()
+        gyroUpdateHandler = nil
     }
 }
-
-public protocol GyroEventDelegate {
-    func gyroDidChanged(data: CMGyroData)
-}
-
